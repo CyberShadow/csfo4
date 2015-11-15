@@ -55,6 +55,7 @@ void* GetRemoteProcAddress(DWORD dwPID, LPCTSTR szModuleName, LPCSTR szFunctionN
 	debug printf("fun (local) : %p\n", lpFun);
 
 	HMODULE hModRemote = GetRemoteModuleHandle(dwPID, szModuleName);
+	enforce(hModRemote, "Can't find remote module");
 	lpFun = (lpFun - cast(void*)hMod + cast(void*)hModRemote);
 
 	debug printf("mod (remote): %p\n", hModRemote);
