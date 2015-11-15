@@ -10,5 +10,6 @@ Requirements:
 
 - [DMD](http://dlang.org/) 2.070
 - [SlimD](https://github.com/CyberShadow/SlimD)
+- [UniLink](ftp://ftp.styx.cabel.net/pub/UniLink/)
 
 Run `slimbuild` from within a component's directory to build it.
