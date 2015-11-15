@@ -5,6 +5,8 @@ import core.sys.windows.winbase;
 import core.sys.windows.winnt;
 import core.sys.windows.winuser;
 
+import std.ascii;
+
 nothrow @nogc:
 
 template TEXT(string s)
@@ -15,7 +17,7 @@ template TEXT(string s)
 
 int icmp(T)(const(T)* a, const(T)* b)
 {
-	while (*a && *b && *a==*b)
+	while (*a && *b && toLower(*a)==toLower(*b))
 		a++, b++;
 	return *b - *a;
 }
