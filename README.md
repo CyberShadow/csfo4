@@ -1,5 +1,5 @@
-Fallout 4 Android Map Fix
-=========================
+Fallout 4 Pip-Boy App Local Map Fix
+===================================
 
 http://www.nexusmods.com/fallout4/mods/644
 
