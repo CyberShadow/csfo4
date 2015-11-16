@@ -24,6 +24,8 @@ extern(Windows) void __imp_LoadLibraryA();
 extern(C)
 void start()
 {
+	LoadLibraryA(`.\dxgi.dll`);
+
 	printf("%p - &LoadLibraryA\n", &LoadLibraryA);
 	printf("%p - &__imp_LoadLibraryA\n", &__imp_LoadLibraryA);
 	printf("%p - *cast(void**)&__imp_LoadLibraryA\n", *cast(void**)&__imp_LoadLibraryA);
