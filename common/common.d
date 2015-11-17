@@ -1,6 +1,7 @@
 module mapfix.common.common;
 
 import core.stdc.stdio;
+import core.stdc.stdlib;
 import core.sys.windows.winbase;
 import core.sys.windows.winnt;
 import core.sys.windows.winuser;
@@ -61,4 +62,9 @@ void showMessage(string msg)
 		sprintf(buf.ptr, "%.*s\n", msg.length, msg.ptr);
 		MessageBoxA(null, buf.ptr, "mapfix", 0);
 	}
+}
+
+T[] newArr(T)(size_t size)
+{
+	return (cast(T*)malloc(size * T.sizeof))[0..size];
 }
