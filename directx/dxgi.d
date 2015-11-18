@@ -573,16 +573,16 @@ interface IDXGIResource : IDXGIDeviceSubObject
 {
 extern(Windows):
     HRESULT GetSharedHandle(
-        out HANDLE pSharedHandle
+        /*out*/ HANDLE* pSharedHandle
         );
     HRESULT GetUsage(
-        out DXGI_USAGE pUsage
+        /*out*/ DXGI_USAGE* pUsage
         );
     HRESULT SetEvictionPriority(
         uint EvictionPriority
         );
     HRESULT GetEvictionPriority(
-        out uint pEvictionPriority
+        /*out*/ uint* pEvictionPriority
         );
 }
 
@@ -606,10 +606,10 @@ interface IDXGISurface : IDXGIDeviceSubObject
 {
 extern(Windows):
     HRESULT GetDesc(
-        out DXGI_SURFACE_DESC pDesc
+        /*out*/ DXGI_SURFACE_DESC* pDesc
         );
     HRESULT Map(
-        out DXGI_MAPPED_RECT pLockedRect,
+        /*out*/ DXGI_MAPPED_RECT* pLockedRect,
         uint MapFlags
         );
     HRESULT Unmap(
@@ -623,7 +623,7 @@ interface IDXGISurface1 : IDXGISurface
 extern(Windows):
     HRESULT GetDC(
         BOOL Discard,
-        out HDC phdc
+        /*out*/ HDC* phdc
         );
     HRESULT ReleaseDC(
         /*optional*/ RECT* pDirtyRect = null
@@ -637,14 +637,14 @@ interface IDXGIAdapter : IDXGIObject
 extern(Windows):
     HRESULT EnumOutputs(
         uint Output,
-        out IDXGIOutput ppOutput
+        /*out*/ IDXGIOutput* ppOutput
         );
     HRESULT GetDesc(
-        out DXGI_ADAPTER_DESC pDesc
+        /*out*/ DXGI_ADAPTER_DESC* pDesc
         );
     HRESULT CheckInterfaceSupport(
         GUID* InterfaceName,
-        out long pUMDVersion
+        /*out*/ long* pUMDVersion
         );
 }
 
@@ -654,7 +654,7 @@ interface IDXGIOutput : IDXGIObject
 {
 extern(Windows):
     HRESULT GetDesc(
-        out DXGI_OUTPUT_DESC pDesc
+        /*out*/ DXGI_OUTPUT_DESC* pDesc
         );
     HRESULT GetDisplayModeList(
         DXGI_FORMAT EnumFormat,
@@ -664,7 +664,7 @@ extern(Windows):
         );
     HRESULT FindClosestMatchingMode(
         in DXGI_MODE_DESC* pModeToMatch,
-        out DXGI_MODE_DESC pClosestMatch,
+        /*out*/ DXGI_MODE_DESC* pClosestMatch,
         /*optional*/ IUnknown pConcernedDevice = null);
     HRESULT WaitForVBlank(
         );
@@ -675,7 +675,7 @@ extern(Windows):
     void ReleaseOwnership(
         );
     HRESULT GetGammaControlCapabilities(
-        out DXGI_GAMMA_CONTROL_CAPABILITIES pGammaCaps
+        /*out*/ DXGI_GAMMA_CONTROL_CAPABILITIES* pGammaCaps
         );
     HRESULT SetGammaControl(
         in DXGI_GAMMA_CONTROL* pArray
@@ -690,7 +690,7 @@ extern(Windows):
         IDXGISurface pDestination
         );
     HRESULT GetFrameStatistics(
-        out DXGI_FRAME_STATISTICS pStats
+        /*out*/ DXGI_FRAME_STATISTICS* pStats
         );
 }
 
@@ -713,11 +713,11 @@ extern(Windows):
         /*optional*/ IDXGIOutput pTarget = null
         );
     HRESULT GetFullscreenState(
-        out BOOL pFullscreen,
-        out IDXGIOutput ppTarget
+        /*out*/ BOOL* pFullscreen,
+        /*out*/ IDXGIOutput* ppTarget
         );
     HRESULT GetDesc(
-        out DXGI_SWAP_CHAIN_DESC pDesc
+        /*out*/ DXGI_SWAP_CHAIN_DESC* pDesc
         );
     HRESULT ResizeBuffers(
         uint BufferCount,
@@ -730,13 +730,13 @@ extern(Windows):
         in DXGI_MODE_DESC* pNewTargetParameters
         );
     HRESULT GetContainingOutput(
-        out IDXGIOutput ppOutput
+        /*out*/ IDXGIOutput* ppOutput
         );
     HRESULT GetFrameStatistics(
-        out DXGI_FRAME_STATISTICS pStats
+        /*out*/ DXGI_FRAME_STATISTICS* pStats
         );
     HRESULT GetLastPresentCount(
-        out uint pLastPresentCount
+        /*out*/ uint* pLastPresentCount
         );
 }
 
@@ -747,22 +747,22 @@ interface IDXGIFactory : IDXGIObject
 extern(Windows):
     HRESULT EnumAdapters(
         uint Adapter,
-        out IDXGIAdapter ppAdapter
+        /*out*/ IDXGIAdapter* ppAdapter
         );
     HRESULT MakeWindowAssociation(
         HWND WindowHandle,
         uint Flags);
     HRESULT GetWindowAssociation(
-        out HWND pWindowHandle
+        /*out*/ HWND* pWindowHandle
         );
     HRESULT CreateSwapChain(
         IUnknown pDevice,
         DXGI_SWAP_CHAIN_DESC* pDesc,
-        out IDXGISwapChain ppSwapChain
+        /*out*/ IDXGISwapChain* ppSwapChain
         );
     HRESULT CreateSoftwareAdapter(
         HMODULE Module,
-        out IDXGIAdapter ppAdapter
+        /*out*/ IDXGIAdapter* ppAdapter
         );
 }
 
@@ -772,14 +772,14 @@ interface IDXGIDevice : IDXGIObject
 {
 extern(Windows):
     HRESULT GetAdapter(
-        out IDXGIAdapter pAdapter
+        /*out*/ IDXGIAdapter* pAdapter
         );
     HRESULT CreateSurface(
         in DXGI_SURFACE_DESC* pDesc,
         uint NumSurfaces,
         DXGI_USAGE Usage,
         in DXGI_SHARED_RESOURCE* pSharedResource,
-        out IDXGISurface ppSurface
+        /*out*/ IDXGISurface* ppSurface
         );
     HRESULT QueryResourceResidency(
         IUnknown* ppResourcesArray,
@@ -790,7 +790,7 @@ extern(Windows):
         int Priority
         );
     HRESULT GetGPUThreadPriority(
-        out int pPriority
+        /*out*/ int* pPriority
         );
 }
 
@@ -801,7 +801,7 @@ interface IDXGIFactory1 : IDXGIFactory
 extern(Windows):
     HRESULT EnumAdapters1(
         uint Adapter,
-        out IDXGIAdapter1 ppAdapter
+        /*out*/ IDXGIAdapter1* ppAdapter
         );
     BOOL IsCurrent(
         );
@@ -813,7 +813,7 @@ interface IDXGIAdapter1 : IDXGIAdapter
 {
 extern(Windows):
     HRESULT GetDesc1(
-        out DXGI_ADAPTER_DESC1 pDesc
+        /*out*/ DXGI_ADAPTER_DESC1* pDesc
         );
 }
 
@@ -826,7 +826,7 @@ extern(Windows):
         uint MaxLatency
         );
     HRESULT GetMaximumFrameLatency(
-        out uint pMaxLatency
+        /*out*/ uint* pMaxLatency
         );
 }
 

@@ -1862,7 +1862,7 @@ interface ID3D11DeviceChild : IUnknown
 {
 extern(Windows):
     void GetDevice(
-        out ID3D11Device ppDevice
+        /*out*/ ID3D11Device* ppDevice
         );
     HRESULT GetPrivateData(
         GUID* guid,
@@ -1886,7 +1886,7 @@ interface ID3D11DepthStencilState : ID3D11DeviceChild
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_DEPTH_STENCIL_DESC pDesc
+        /*out*/ D3D11_DEPTH_STENCIL_DESC* pDesc
         );
 }
 
@@ -1896,7 +1896,7 @@ interface ID3D11BlendState : ID3D11DeviceChild
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_BLEND_DESC pDesc
+        /*out*/ D3D11_BLEND_DESC* pDesc
         );
 }
 
@@ -1906,7 +1906,7 @@ interface ID3D11RasterizerState : ID3D11DeviceChild
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_RASTERIZER_DESC pDesc
+        /*out*/ D3D11_RASTERIZER_DESC* pDesc
         );
 }
 
@@ -1916,7 +1916,7 @@ interface ID3D11Resource : ID3D11DeviceChild
 {
 extern(Windows):
     void GetType(
-        out D3D11_RESOURCE_DIMENSION pResourceDimension
+        /*out*/ D3D11_RESOURCE_DIMENSION* pResourceDimension
         );
     void SetEvictionPriority(
         uint EvictionPriority
@@ -1931,7 +1931,7 @@ interface ID3D11Buffer : ID3D11Resource
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_BUFFER_DESC pDesc
+        /*out*/ D3D11_BUFFER_DESC* pDesc
         );
 }
 
@@ -1941,7 +1941,7 @@ interface ID3D11Texture1D : ID3D11Resource
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_TEXTURE1D_DESC pDesc
+        /*out*/ D3D11_TEXTURE1D_DESC* pDesc
         );
 }
 
@@ -1951,7 +1951,7 @@ interface ID3D11Texture2D : ID3D11Resource
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_TEXTURE2D_DESC pDesc
+        /*out*/ D3D11_TEXTURE2D_DESC* pDesc
         );
 }
 
@@ -1961,7 +1961,7 @@ interface ID3D11Texture3D : ID3D11Resource
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_TEXTURE3D_DESC pDesc
+        /*out*/ D3D11_TEXTURE3D_DESC* pDesc
         );
 }
 
@@ -1971,7 +1971,7 @@ interface ID3D11View : ID3D11DeviceChild
 {
 extern(Windows):
     void GetResource(
-        out ID3D11Resource ppResource
+        /*out*/ ID3D11Resource* ppResource
         );
 }
 
@@ -1981,7 +1981,7 @@ interface ID3D11ShaderResourceView : ID3D11View
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_SHADER_RESOURCE_VIEW_DESC pDesc
+        /*out*/ D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc
         );
 }
 
@@ -1991,7 +1991,7 @@ interface ID3D11RenderTargetView : ID3D11View
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_RENDER_TARGET_VIEW_DESC pDesc
+        /*out*/ D3D11_RENDER_TARGET_VIEW_DESC* pDesc
         );
 }
 
@@ -2001,7 +2001,7 @@ interface ID3D11DepthStencilView : ID3D11View
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_DEPTH_STENCIL_VIEW_DESC pDesc
+        /*out*/ D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc
         );
 }
 
@@ -2011,7 +2011,7 @@ interface ID3D11UnorderedAccessView : ID3D11View
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_UNORDERED_ACCESS_VIEW_DESC pDesc
+        /*out*/ D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc
         );
 }
 
@@ -2101,7 +2101,7 @@ interface ID3D11Counter : ID3D11Asynchronous
 {
 extern(Windows):
     void GetDesc(
-        out D3D11_COUNTER_DESC pDesc
+        /*out*/ D3D11_COUNTER_DESC* pDesc
         );
 }
 
@@ -2111,10 +2111,10 @@ interface ID3D11ClassInstance : ID3D11DeviceChild
 {
 extern(Windows):
     void GetClassLinkage(
-        out ID3D11ClassLinkage ppLinkage
+        /*out*/ ID3D11ClassLinkage* ppLinkage
         );
     void GetDesc(
-        out D3D11_CLASS_INSTANCE_DESC pDesc
+        /*out*/ D3D11_CLASS_INSTANCE_DESC* pDesc
         );
     void GetInstanceName(
         char* pInstanceName,
@@ -2134,7 +2134,7 @@ extern(Windows):
     HRESULT GetClassInstance(
         in char* pClassInstanceName,
         uint InstanceIndex,
-        out ID3D11ClassInstance ppInstance
+        /*out*/ ID3D11ClassInstance* ppInstance
         );
     HRESULT CreateClassInstance(
         in char* pClassTypeName,
@@ -2142,7 +2142,7 @@ extern(Windows):
         uint ConstantVectorOffset,
         uint TextureOffset,
         uint SamplerOffset,
-        out ID3D11ClassInstance ppInstance
+        /*out*/ ID3D11ClassInstance* ppInstance
         );
 }
 
@@ -2199,7 +2199,7 @@ extern(Windows):
         uint Subresource,
         D3D11_MAP MapType,
         uint MapFlags,
-        out D3D11_MAPPED_SUBRESOURCE pMappedResource
+        /*out*/ D3D11_MAPPED_SUBRESOURCE* pMappedResource
         );
     void Unmap(
         ID3D11Resource pResource,
@@ -2488,7 +2488,7 @@ extern(Windows):
         ID3D11ShaderResourceView* ppShaderResourceViewsCArray
         );
     void PSGetShader(
-        out ID3D11PixelShader ppPixelShader,
+        /*out*/ ID3D11PixelShader* ppPixelShader,
         /*optional*/ ID3D11ClassInstance* ppClassInstancesCArray,
         /*optional*/ uint* pNumClassInstances
         );
@@ -2498,7 +2498,7 @@ extern(Windows):
         ID3D11SamplerState* ppSamplersCArray
         );
     void VSGetShader(
-        out ID3D11VertexShader ppVertexShader,
+        /*out*/ ID3D11VertexShader* ppVertexShader,
         /*optional*/ ID3D11ClassInstance* ppClassInstancesCArray,
         /*optional*/ uint* pNumClassInstances
         );
@@ -2508,7 +2508,7 @@ extern(Windows):
         ID3D11Buffer* ppConstantBuffersCArray
         );
     void IAGetInputLayout(
-        out ID3D11InputLayout ppInputLayout
+        /*out*/ ID3D11InputLayout* ppInputLayout
         );
     void IAGetVertexBuffers(
         uint StartSlot,
@@ -2518,7 +2518,7 @@ extern(Windows):
         /*optional*/ uint* pOffsetsCArray
         );
     void IAGetIndexBuffer(
-        out ID3D11Buffer pIndexBuffer,
+        /*out*/ ID3D11Buffer* pIndexBuffer,
         /*optional*/ DXGI_FORMAT* Format,
         /*optional*/ uint* Offset
         );
@@ -2528,12 +2528,12 @@ extern(Windows):
         ID3D11Buffer* ppConstantBuffersCArray
         );
     void GSGetShader(
-        out ID3D11GeometryShader ppGeometryShader,
+        /*out*/ ID3D11GeometryShader* ppGeometryShader,
         /*optional*/ ID3D11ClassInstance* ppClassInstancesCArray,
         /*optional*/ uint* pNumClassInstances
         );
     void IAGetPrimitiveTopology(
-        out D3D11_PRIMITIVE_TOPOLOGY pTopology
+        /*out*/ D3D11_PRIMITIVE_TOPOLOGY* pTopology
         );
     void VSGetShaderResources(
         uint StartSlot,
@@ -2546,8 +2546,8 @@ extern(Windows):
         ID3D11SamplerState* ppSamplersCArray
         );
     void GetPredication(
-        out ID3D11Predicate ppPredicate,
-        out BOOL pPredicateValue
+        /*out*/ ID3D11Predicate* ppPredicate,
+        /*out*/ BOOL* pPredicateValue
         );
     void GSGetShaderResources(
         uint StartSlot,
@@ -2573,20 +2573,20 @@ extern(Windows):
         /*optional*/ ID3D11UnorderedAccessView* ppUnorderedAccessViewsCArray
         );
     void OMGetBlendState(
-        out ID3D11BlendState ppBlendState,
+        /*out*/ ID3D11BlendState* ppBlendState,
         ref D3D11COLORVALUE BlendFactor,
         uint* pSampleMask
         );
     void OMGetDepthStencilState(
-        out ID3D11DepthStencilState ppDepthStencilState,
-        out uint pStencilRef
+        /*out*/ ID3D11DepthStencilState* ppDepthStencilState,
+        /*out*/ uint* pStencilRef
         );
     void SOGetTargets(
         uint NumBuffers,
         ID3D11Buffer* ppSOTargetsCArray
         );
     void RSGetState(
-        out ID3D11RasterizerState ppRasterizerState
+        /*out*/ ID3D11RasterizerState* ppRasterizerState
         );
     void RSGetViewports(
         ref uint pNumViewports,
@@ -2602,7 +2602,7 @@ extern(Windows):
         ID3D11ShaderResourceView* ppShaderResourceViewsCArray
         );
     void HSGetShader(
-        out ID3D11HullShader ppHullShader,
+        /*out*/ ID3D11HullShader* ppHullShader,
         /*optional*/ ID3D11ClassInstance* ppClassInstancesCArray,
         /*optional*/ ref uint pNumClassInstancesCArray
         );
@@ -2622,7 +2622,7 @@ extern(Windows):
         ID3D11ShaderResourceView* ppShaderResourceViewsCArray
         );
     void DSGetShader(
-        out ID3D11DomainShader ppDomainShader,
+        /*out*/ ID3D11DomainShader* ppDomainShader,
         /*optional*/ ID3D11ClassInstance* ppClassInstancesCArray,
         /*optional*/ ref uint pNumClassInstances
         );
@@ -2647,7 +2647,7 @@ extern(Windows):
         ID3D11UnorderedAccessView* ppUnorderedAccessViewsCArray
         );
     void CSGetShader(
-        out ID3D11ComputeShader ppComputeShader,
+        /*out*/ ID3D11ComputeShader* ppComputeShader,
         /*optional*/ ID3D11ClassInstance* ppClassInstancesCArray,
         /*optional*/ ref uint pNumClassInstances
         );
@@ -2671,7 +2671,7 @@ extern(Windows):
         );
     HRESULT FinishCommandList(
         BOOL RestoreDeferredContextState,
-        out ID3D11CommandList ppCommandList
+        /*out*/ ID3D11CommandList* ppCommandList
         );
 }
 
@@ -2683,61 +2683,61 @@ extern(Windows):
     HRESULT CreateBuffer(
         in D3D11_BUFFER_DESC* pDesc,
         in D3D11_SUBRESOURCE_DATA* pInitialData,
-        out ID3D11Buffer ppBuffer
+        /*out*/ ID3D11Buffer* ppBuffer
         );
     HRESULT CreateTexture1D(
         in D3D11_TEXTURE1D_DESC* pDesc,
         in D3D11_SUBRESOURCE_DATA* pInitialData,
-        out ID3D11Texture1D ppTexture1D
+        /*out*/ ID3D11Texture1D* ppTexture1D
         );
     HRESULT CreateTexture2D(
         in D3D11_TEXTURE2D_DESC* pDesc,
         in D3D11_SUBRESOURCE_DATA* pInitialData,
-        out ID3D11Texture2D ppTexture2D
+        /*out*/ ID3D11Texture2D* ppTexture2D
         );
     HRESULT CreateTexture3D(
         in D3D11_TEXTURE3D_DESC* pDesc,
         in D3D11_SUBRESOURCE_DATA* pInitialData,
-        out ID3D11Texture3D ppTexture3D
+        /*out*/ ID3D11Texture3D* ppTexture3D
         );
     HRESULT CreateShaderResourceView(
         ID3D11Resource pResource,
         in D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc,
-        out ID3D11ShaderResourceView ppSRView
+        /*out*/ ID3D11ShaderResourceView* ppSRView
         );
     HRESULT CreateUnorderedAccessView(
         ID3D11Resource pResource,
         in D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc,
-        out ID3D11UnorderedAccessView ppUAView
+        /*out*/ ID3D11UnorderedAccessView* ppUAView
         );
     HRESULT CreateRenderTargetView(
         ID3D11Resource pResource,
         in D3D11_RENDER_TARGET_VIEW_DESC* pDesc,
-        out ID3D11RenderTargetView ppRTView
+        /*out*/ ID3D11RenderTargetView* ppRTView
         );
     HRESULT CreateDepthStencilView(
         ID3D11Resource pResource,
         in D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc,
-        out ID3D11DepthStencilView ppDepthStencilView
+        /*out*/ ID3D11DepthStencilView* ppDepthStencilView
         );
     HRESULT CreateInputLayout(
         in D3D11_INPUT_ELEMENT_DESC* pInputElementDescsCArray,
         uint NumElements,
         in void* pShaderBytecodeWithInputSignature,
         size_t BytecodeLength,
-        out ID3D11InputLayout ppInputLayout
+        /*out*/ ID3D11InputLayout* ppInputLayout
         );
     HRESULT CreateVertexShader(
         in void* pShaderBytecode,
         size_t BytecodeLength,
         ID3D11ClassLinkage pClassLinkage,
-        out ID3D11VertexShader ppVertexShader
+        /*out*/ ID3D11VertexShader* ppVertexShader
         );
     HRESULT CreateGeometryShader(
         in void* pShaderBytecode,
         size_t BytecodeLength,
         /*optional*/ ID3D11ClassLinkage pClassLinkage,
-        out ID3D11GeometryShader ppGeometryShader
+        /*out*/ ID3D11GeometryShader* ppGeometryShader
         );
     HRESULT CreateGeometryShaderWithStreamOutput(
         in void* pShaderBytecode,
@@ -2748,66 +2748,66 @@ extern(Windows):
         uint NumStrides,
         uint RasterizedStream,
         /*optional*/ ID3D11ClassLinkage pClassLinkage,
-        out ID3D11GeometryShader ppGeometryShader
+        /*out*/ ID3D11GeometryShader* ppGeometryShader
         );
     HRESULT CreatePixelShader(
         in void* pShaderBytecode,
         size_t BytecodeLength,
         ID3D11ClassLinkage pClassLinkage,
-        out ID3D11PixelShader ppPixelShader
+        /*out*/ ID3D11PixelShader* ppPixelShader
         );
     HRESULT CreateHullShader(
         in void* pShaderBytecode,
         size_t BytecodeLength,
         ID3D11ClassLinkage pClassLinkage,
-        out ID3D11HullShader ppHullShader
+        /*out*/ ID3D11HullShader* ppHullShader
         );
     HRESULT CreateDomainShader(
         in void* pShaderBytecode,
         size_t BytecodeLength,
         ID3D11ClassLinkage pClassLinkage,
-        out ID3D11DomainShader ppDomainShader
+        /*out*/ ID3D11DomainShader* ppDomainShader
         );
     HRESULT CreateComputeShader(
         in void* pShaderBytecode,
         size_t BytecodeLength,
         ID3D11ClassLinkage pClassLinkage,
-        out ID3D11ComputeShader ppComputeShader
+        /*out*/ ID3D11ComputeShader* ppComputeShader
         );
     HRESULT CreateClassLinkage(
-        out ID3D11ClassLinkage ppLinkage
+        /*out*/ ID3D11ClassLinkage* ppLinkage
         );
     HRESULT CreateBlendState(
         in D3D11_BLEND_DESC* pBlendStateDesc,
-        out ID3D11BlendState ppBlendState
+        /*out*/ ID3D11BlendState* ppBlendState
         );
     HRESULT CreateDepthStencilState(
         in D3D11_DEPTH_STENCIL_DESC* pDepthStencilDesc,
-        out ID3D11DepthStencilState ppDepthStencilState
+        /*out*/ ID3D11DepthStencilState* ppDepthStencilState
         );
     HRESULT CreateRasterizerState(
         in D3D11_RASTERIZER_DESC* pRasterizerDesc,
-        out ID3D11RasterizerState ppRasterizerState
+        /*out*/ ID3D11RasterizerState* ppRasterizerState
         );
     HRESULT CreateSamplerState(
         in D3D11_SAMPLER_DESC* pSamplerDesc,
-        out ID3D11SamplerState ppSamplerState
+        /*out*/ ID3D11SamplerState* ppSamplerState
         );
     HRESULT CreateQuery(
         in D3D11_QUERY_DESC* pQueryDesc,
-        out ID3D11Query ppQuery
+        /*out*/ ID3D11Query* ppQuery
         );
     HRESULT CreatePredicate(
         in D3D11_QUERY_DESC* pPredicateDesc,
-        out ID3D11Predicate ppPredicate
+        /*out*/ ID3D11Predicate* ppPredicate
         );
     HRESULT CreateCounter(
         in D3D11_COUNTER_DESC* pCounterDesc,
-        out ID3D11Counter ppCounter
+        /*out*/ ID3D11Counter* ppCounter
         );
     HRESULT CreateDeferredContext(
         uint ContextFlags,
-        out ID3D11DeviceContext ppDeferredContext
+        /*out*/ ID3D11DeviceContext* ppDeferredContext
         );
     HRESULT OpenSharedResource(
         HANDLE hResource,
@@ -2828,8 +2828,8 @@ extern(Windows):
         );
     HRESULT CheckCounter(
         in D3D11_COUNTER_DESC* pDesc,
-        out D3D11_COUNTER_TYPE pType,
-        out uint pActiveCounters,
+        /*out*/ D3D11_COUNTER_TYPE* pType,
+        /*out*/ uint* pActiveCounters,
         /*optional*/ char* szName,
         /*optional*/ uint* pNameLength,
         /*optional*/ char* szUnits,
@@ -2863,7 +2863,7 @@ extern(Windows):
     HRESULT GetDeviceRemovedReason(
         );
     void GetImmediateContext(
-        out ID3D11DeviceContext ppImmediateContext
+        /*out*/ ID3D11DeviceContext* ppImmediateContext
         );
     HRESULT SetExceptionMode(
         uint RaiseFlags
@@ -2922,7 +2922,7 @@ HRESULT D3D11CreateDevice(
     in D3D11_FEATURE_LEVEL* pFeatureLevels,
     uint FeatureLevels,
     uint SDKVersion,
-    out ID3D11Device ppDevice,
+    /*out*/ ID3D11Device* ppDevice,
     D3D11_FEATURE_LEVEL* pFeatureLevel,
     ID3D11DeviceContext* ppImmediateContext
     );
@@ -2936,8 +2936,8 @@ HRESULT D3D11CreateDeviceAndSwapChain(
     uint FeatureLevels,
     uint SDKVersion,
     in DXGI_SWAP_CHAIN_DESC* pSwapChainDesc,
-    out IDXGISwapChain ppSwapChain,
-    out ID3D11Device ppDevice,
+    /*out*/ IDXGISwapChain* ppSwapChain,
+    /*out*/ ID3D11Device* ppDevice,
     D3D11_FEATURE_LEVEL* pFeatureLevel,
     ID3D11DeviceContext* ppImmediateContext
     );

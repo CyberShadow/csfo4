@@ -722,7 +722,7 @@ extern(Windows):
     HRESULT CreateStreamFromKey(
         in void* fontFileReferenceKey,
         uint fontFileReferenceKeySize,
-        out IDWriteFontFileStream fontFileStream
+        /*out*/ IDWriteFontFileStream* fontFileStream
         );
 }
 
@@ -734,7 +734,7 @@ extern(Windows):
     HRESULT GetFilePathLengthFromKey(
         in void* fontFileReferenceKey,
         uint fontFileReferenceKeySize,
-        out uint filePathLength
+        /*out*/ uint* filePathLength
         );
     HRESULT GetFilePathFromKey(
         in void* fontFileReferenceKey,
@@ -745,7 +745,7 @@ extern(Windows):
     HRESULT GetLastWriteTimeFromKey(
         in void* fontFileReferenceKey,
         uint fontFileReferenceKeySize,
-        out FILETIME lastWriteTime
+        /*out*/ FILETIME* lastWriteTime
         );
 }
 
@@ -764,10 +764,10 @@ extern(Windows):
         void* fragmentContext
         );
     HRESULT GetFileSize(
-        out ulong fileSize
+        /*out*/ ulong* fileSize
         );
     HRESULT GetLastWriteTime(
-        out ulong lastWriteTime
+        /*out*/ ulong* lastWriteTime
         );
 }
 
@@ -778,16 +778,16 @@ interface IDWriteFontFile : IUnknown
 extern(Windows):
     HRESULT GetReferenceKey(
         void** fontFileReferenceKey,
-        out uint fontFileReferenceKeySize
+        /*out*/ uint* fontFileReferenceKeySize
         );
     HRESULT GetLoader(
-        out IDWriteFontFileLoader fontFileLoader
+        /*out*/ IDWriteFontFileLoader* fontFileLoader
         );
     HRESULT Analyze(
-        out BOOL isSupportedFontType,
-        out DWRITE_FONT_FILE_TYPE fontFileType,
+        /*out*/ BOOL* isSupportedFontType,
+        /*out*/ DWRITE_FONT_FILE_TYPE* fontFileType,
         DWRITE_FONT_FACE_TYPE* fontFaceType,
-        out uint numberOfFaces
+        /*out*/ uint* numberOfFaces
         );
 }
 
@@ -826,7 +826,7 @@ extern(Windows):
     BOOL IsSymbolFont(
         );
     void GetMetrics(
-        out DWRITE_FONT_METRICS fontFaceMetrics
+        /*out*/ DWRITE_FONT_METRICS* fontFaceMetrics
         );
     ushort GetGlyphCount(
         );
@@ -844,9 +844,9 @@ extern(Windows):
     HRESULT TryGetFontTable(
         uint openTypeTableTag,
         in void** tableData,
-        out uint tableSize,
+        /*out*/ uint* tableSize,
         out void* tableContext,
-        out BOOL exists
+        /*out*/ BOOL* exists
         );
     void ReleaseFontTable(
         void* tableContext
@@ -866,13 +866,13 @@ extern(Windows):
         float pixelsPerDip,
         DWRITE_MEASURING_MODE measuringMode,
         IDWriteRenderingParams renderingParams,
-        out DWRITE_RENDERING_MODE renderingMode
+        /*out*/ DWRITE_RENDERING_MODE* renderingMode
         );
     HRESULT GetGdiCompatibleMetrics(
         float emSize,
         float pixelsPerDip,
         in DWRITE_MATRIX* transform,
-        out DWRITE_FONT_METRICS fontFaceMetrics
+        /*out*/ DWRITE_FONT_METRICS* fontFaceMetrics
         );
     HRESULT GetGdiCompatibleGlyphMetrics(
         float emSize,
@@ -895,7 +895,7 @@ extern(Windows):
         IDWriteFactory factory,
         in void* collectionKey,
         uint collectionKeySize,
-        out IDWriteFontFileEnumerator fontFileEnumerator
+        /*out*/ IDWriteFontFileEnumerator* fontFileEnumerator
         );
 }
 
@@ -905,10 +905,10 @@ interface IDWriteFontFileEnumerator : IUnknown
 {
 extern(Windows):
     HRESULT MoveNext(
-        out BOOL hasCurrentFile
+        /*out*/ BOOL* hasCurrentFile
         );
     HRESULT GetCurrentFontFile(
-        out IDWriteFontFile fontFile
+        /*out*/ IDWriteFontFile* fontFile
         );
 }
 
@@ -921,12 +921,12 @@ extern(Windows):
         );
     HRESULT FindLocaleName(
         in WCHAR* localeName, 
-        out uint index,
-        out BOOL exists
+        /*out*/ uint* index,
+        /*out*/ BOOL* exists
         );
     HRESULT GetLocaleNameLength(
         uint index,
-        out uint length
+        /*out*/ uint* length
         );
     HRESULT GetLocaleName(
         uint index,
@@ -935,7 +935,7 @@ extern(Windows):
         );
     HRESULT GetStringLength(
         uint index,
-        out uint length
+        /*out*/ uint* length
         );
     HRESULT GetString(
         uint index,
@@ -953,16 +953,16 @@ extern(Windows):
         );
     HRESULT GetFontFamily(
         uint index,
-        out IDWriteFontFamily fontFamily
+        /*out*/ IDWriteFontFamily* fontFamily
         );
     HRESULT FindFamilyName(
         in WCHAR* familyName,
-        out uint index,
-        out BOOL exists
+        /*out*/ uint* index,
+        /*out*/ BOOL* exists
         );
     HRESULT GetFontFromFontFace(
         IDWriteFontFace fontFace,
-        out IDWriteFont font
+        /*out*/ IDWriteFont* font
         );
 }
 
@@ -972,13 +972,13 @@ interface IDWriteFontList : IUnknown
 {
 extern(Windows):
     HRESULT GetFontCollection(
-        out IDWriteFontCollection fontCollection
+        /*out*/ IDWriteFontCollection* fontCollection
         );
     uint GetFontCount(
         );
     HRESULT GetFont(
         uint index, 
-        out IDWriteFont font
+        /*out*/ IDWriteFont* font
         );
 }
 
@@ -988,19 +988,19 @@ interface IDWriteFontFamily : IDWriteFontList
 {
 extern(Windows):
     HRESULT GetFamilyNames(
-        out IDWriteLocalizedStrings names
+        /*out*/ IDWriteLocalizedStrings* names
         );
     HRESULT GetFirstMatchingFont(
         DWRITE_FONT_WEIGHT  weight,
         DWRITE_FONT_STRETCH stretch,
         DWRITE_FONT_STYLE   style,
-        out IDWriteFont matchingFont
+        /*out*/ IDWriteFont* matchingFont
         );
     HRESULT GetMatchingFonts(
         DWRITE_FONT_WEIGHT      weight,
         DWRITE_FONT_STRETCH     stretch,
         DWRITE_FONT_STYLE       style,
-        out IDWriteFontList matchingFonts
+        /*out*/ IDWriteFontList* matchingFonts
         );
 }
 
@@ -1010,7 +1010,7 @@ interface IDWriteFont : IUnknown
 {
 extern(Windows):
     HRESULT GetFontFamily(
-        out IDWriteFontFamily fontFamily
+        /*out*/ IDWriteFontFamily* fontFamily
         );
     DWRITE_FONT_WEIGHT GetWeight(
         );
@@ -1021,24 +1021,24 @@ extern(Windows):
     BOOL IsSymbolFont(
         );
     HRESULT GetFaceNames(
-        out IDWriteLocalizedStrings names
+        /*out*/ IDWriteLocalizedStrings* names
         );
     HRESULT GetInformationalStrings(
         DWRITE_INFORMATIONAL_STRING_ID informationalStringID,
-        out IDWriteLocalizedStrings informationalStrings,
-        out BOOL exists
+        /*out*/ IDWriteLocalizedStrings* informationalStrings,
+        /*out*/ BOOL* exists
         );
     DWRITE_FONT_SIMULATIONS GetSimulations(
         );
     void GetMetrics(
-        out DWRITE_FONT_METRICS fontMetrics
+        /*out*/ DWRITE_FONT_METRICS* fontMetrics
         );
     HRESULT HasCharacter(
         uint unicodeValue,
-        out BOOL exists
+        /*out*/ BOOL* exists
         );
     HRESULT CreateFontFace(
-        out IDWriteFontFace fontFace
+        /*out*/ IDWriteFontFace* fontFace
         );
 }
 
@@ -1087,16 +1087,16 @@ extern(Windows):
     float GetIncrementalTabStop(
         );
     HRESULT GetTrimming(
-        out DWRITE_TRIMMING trimmingOptions,
-        out IDWriteInlineObject trimmingSign
+        /*out*/ DWRITE_TRIMMING* trimmingOptions,
+        /*out*/ IDWriteInlineObject* trimmingSign
         );
     HRESULT GetLineSpacing(
-        out DWRITE_LINE_SPACING_METHOD lineSpacingMethod,
-        out float lineSpacing,
-        out float baseline
+        /*out*/ DWRITE_LINE_SPACING_METHOD* lineSpacingMethod,
+        /*out*/ float* lineSpacing,
+        /*out*/ float* baseline
         );
     HRESULT GetFontCollection(
-        out IDWriteFontCollection fontCollection
+        /*out*/ IDWriteFontCollection* fontCollection
         );
     uint GetFontFamilyNameLength(
         );
@@ -1132,7 +1132,7 @@ extern(Windows):
         );
     HRESULT GetFontFeature(
         uint fontFeatureIndex,
-        out DWRITE_FONT_FEATURE fontFeature
+        /*out*/ DWRITE_FONT_FEATURE* fontFeature
         );
 }
 
@@ -1151,24 +1151,24 @@ extern(Windows):
     HRESULT GetTextAtPosition(
         uint textPosition,
         out WCHAR* textString,
-        out uint textLength
+        /*out*/ uint* textLength
         );
     HRESULT GetTextBeforePosition(
         uint textPosition,
         out WCHAR* textString,
-        out uint textLength
+        /*out*/ uint* textLength
         );
     DWRITE_READING_DIRECTION GetParagraphReadingDirection(
         );
     HRESULT GetLocaleName(
         uint textPosition,
-        out uint textLength,
+        /*out*/ uint* textLength,
         out WCHAR* localeName
         );
     HRESULT GetNumberSubstitution(
         uint textPosition,
-        out uint textLength,
-        out IDWriteNumberSubstitution numberSubstitution
+        /*out*/ uint* textLength,
+        /*out*/ IDWriteNumberSubstitution* numberSubstitution
         );
 }
 
@@ -1246,7 +1246,7 @@ extern(Windows):
         DWRITE_SHAPING_TEXT_PROPERTIES* textProps,
         ushort* glyphIndices,
         DWRITE_SHAPING_GLYPH_PROPERTIES* glyphProps,
-        out uint actualGlyphCount
+        /*out*/ uint* actualGlyphCount
         );
     HRESULT GetGlyphPlacements(
         in WCHAR* textString,
@@ -1308,14 +1308,14 @@ extern(Windows):
         /*optional*/ IUnknown clientDrawingEffect = null
         );
     HRESULT GetMetrics(
-        out DWRITE_INLINE_OBJECT_METRICS metrics
+        /*out*/ DWRITE_INLINE_OBJECT_METRICS* metrics
         );
     HRESULT GetOverhangMetrics(
-        out DWRITE_OVERHANG_METRICS overhangs
+        /*out*/ DWRITE_OVERHANG_METRICS* overhangs
         );
     HRESULT GetBreakConditions(
-        out DWRITE_BREAK_CONDITION breakConditionBefore,
-        out DWRITE_BREAK_CONDITION breakConditionAfter
+        /*out*/ DWRITE_BREAK_CONDITION* breakConditionBefore,
+        /*out*/ DWRITE_BREAK_CONDITION* breakConditionAfter
         );
 }
 
@@ -1326,15 +1326,15 @@ interface IDWritePixelSnapping : IUnknown
 extern(Windows):
     HRESULT IsPixelSnappingDisabled(
         void* clientDrawingContext,
-        out BOOL isDisabled
+        /*out*/ BOOL* isDisabled
         );
     HRESULT GetCurrentTransform(
         void* clientDrawingContext,
-        out DWRITE_MATRIX transform
+        /*out*/ DWRITE_MATRIX* transform
         );
     HRESULT GetPixelsPerDip(
         void* clientDrawingContext,
-        out float pixelsPerDip
+        /*out*/ float* pixelsPerDip
         );
 }
 
@@ -1442,12 +1442,12 @@ extern(Windows):
         );
     HRESULT GetFontCollection(
         uint currentPosition,
-        out IDWriteFontCollection fontCollection,
+        /*out*/ IDWriteFontCollection* fontCollection,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetFontFamilyNameLength(
         uint currentPosition,
-        out uint nameLength,
+        /*out*/ uint* nameLength,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetFontFamilyName(
@@ -1458,52 +1458,52 @@ extern(Windows):
         );
     HRESULT GetFontWeight(
         uint currentPosition,
-        out DWRITE_FONT_WEIGHT fontWeight,
+        /*out*/ DWRITE_FONT_WEIGHT* fontWeight,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetFontStyle(
         uint currentPosition,
-        out DWRITE_FONT_STYLE fontStyle,
+        /*out*/ DWRITE_FONT_STYLE* fontStyle,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetFontStretch(
         uint currentPosition,
-        out DWRITE_FONT_STRETCH fontStretch,
+        /*out*/ DWRITE_FONT_STRETCH* fontStretch,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetFontSize(
         uint currentPosition,
-        out float fontSize,
+        /*out*/ float* fontSize,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetUnderline(
         uint currentPosition,
-        out BOOL hasUnderline,
+        /*out*/ BOOL* hasUnderline,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetStrikethrough(
         uint currentPosition,
-        out BOOL hasStrikethrough,
+        /*out*/ BOOL* hasStrikethrough,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetDrawingEffect(
         uint currentPosition,
-        out IUnknown drawingEffect,
+        /*out*/ IUnknown* drawingEffect,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetInlineObject(
         uint currentPosition,
-        out IDWriteInlineObject inlineObject,
+        /*out*/ IDWriteInlineObject* inlineObject,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetTypography(
         uint currentPosition,
-        out IDWriteTypography typography,
+        /*out*/ IDWriteTypography* typography,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetLocaleNameLength(
         uint currentPosition,
-        out uint nameLength,
+        /*out*/ uint* nameLength,
         DWRITE_TEXT_RANGE* textRange = null
         );
     HRESULT GetLocaleName(
@@ -1521,35 +1521,35 @@ extern(Windows):
     HRESULT GetLineMetrics(
         DWRITE_LINE_METRICS* lineMetrics,
         uint maxLineCount,
-        out uint actualLineCount
+        /*out*/ uint* actualLineCount
         );
     HRESULT GetMetrics(
-        out DWRITE_TEXT_METRICS textMetrics
+        /*out*/ DWRITE_TEXT_METRICS* textMetrics
         );
     HRESULT GetOverhangMetrics(
-        out DWRITE_OVERHANG_METRICS overhangs
+        /*out*/ DWRITE_OVERHANG_METRICS* overhangs
         );
     HRESULT GetClusterMetrics(
         DWRITE_CLUSTER_METRICS* clusterMetrics,
         uint maxClusterCount,
-        out uint actualClusterCount
+        /*out*/ uint* actualClusterCount
         );
     HRESULT DetermineMinWidth(
-        out float minWidth
+        /*out*/ float* minWidth
         );
     HRESULT HitTestPoint(
         float pointX,
         float pointY,
-        out BOOL isTrailingHit,
-        out BOOL isInside,
-        out DWRITE_HIT_TEST_METRICS hitTestMetrics
+        /*out*/ BOOL* isTrailingHit,
+        /*out*/ BOOL* isInside,
+        /*out*/ DWRITE_HIT_TEST_METRICS* hitTestMetrics
         );
     HRESULT HitTestTextPosition(
         uint textPosition,
         BOOL isTrailingHit,
-        out float pointX,
-        out float pointY,
-        out DWRITE_HIT_TEST_METRICS hitTestMetrics
+        /*out*/ float* pointX,
+        /*out*/ float* pointY,
+        /*out*/ DWRITE_HIT_TEST_METRICS* hitTestMetrics
         );
     HRESULT HitTestTextRange(
         uint textPosition,
@@ -1558,7 +1558,7 @@ extern(Windows):
         float originY,
         DWRITE_HIT_TEST_METRICS* hitTestMetrics,
         uint maxHitTestMetricsCount,
-        out uint actualHitTestMetricsCount
+        /*out*/ uint* actualHitTestMetricsCount
         );
 }
 
@@ -1584,13 +1584,13 @@ extern(Windows):
         float pixelsPerDip
         );
     HRESULT GetCurrentTransform(
-        out DWRITE_MATRIX transform
+        /*out*/ DWRITE_MATRIX* transform
         );
     HRESULT SetCurrentTransform(
         in DWRITE_MATRIX* transform
         );
     HRESULT GetSize(
-        out SIZE size
+        /*out*/ SIZE* size
         );
     HRESULT Resize(
         uint width,
@@ -1605,26 +1605,26 @@ interface IDWriteGdiInterop : IUnknown
 extern(Windows):
     HRESULT CreateFontFromLOGFONT(
         in LOGFONTW* logFont,
-        out IDWriteFont font
+        /*out*/ IDWriteFont* font
         );
     HRESULT ConvertFontToLOGFONT(
         IDWriteFont font,
-        out LOGFONTW logFont,
-        out BOOL isSystemFont
+        /*out*/ LOGFONTW* logFont,
+        /*out*/ BOOL* isSystemFont
         );
     HRESULT ConvertFontFaceToLOGFONT(
         IDWriteFontFace font,
-        out LOGFONTW logFont
+        /*out*/ LOGFONTW* logFont
         );
     HRESULT CreateFontFaceFromHdc(
         HDC hdc,
-        out IDWriteFontFace fontFace
+        /*out*/ IDWriteFontFace* fontFace
         );
     HRESULT CreateBitmapRenderTarget(
         HDC hdc,
         uint width,
         uint height,
-        out IDWriteBitmapRenderTarget renderTarget
+        /*out*/ IDWriteBitmapRenderTarget* renderTarget
         );
 }
 
@@ -1635,7 +1635,7 @@ interface IDWriteGlyphRunAnalysis : IUnknown
 extern(Windows):
     HRESULT GetAlphaTextureBounds(
         DWRITE_TEXTURE_TYPE textureType,
-        out RECT textureBounds
+        /*out*/ RECT* textureBounds
         );
     HRESULT CreateAlphaTexture(
         DWRITE_TEXTURE_TYPE textureType,
@@ -1645,9 +1645,9 @@ extern(Windows):
         );
     HRESULT GetAlphaBlendParams(
         IDWriteRenderingParams renderingParams,
-        out float blendGamma,
-        out float blendEnhancedContrast,
-        out float blendClearTypeLevel
+        /*out*/ float* blendGamma,
+        /*out*/ float* blendEnhancedContrast,
+        /*out*/ float* blendClearTypeLevel
         );
 }
 
@@ -1657,14 +1657,14 @@ interface IDWriteFactory : IUnknown
 {
 extern(Windows):
     HRESULT GetSystemFontCollection(
-        out IDWriteFontCollection fontCollection,
+        /*out*/ IDWriteFontCollection* fontCollection,
         BOOL checkForUpdates = FALSE
         );
     HRESULT CreateCustomFontCollection(
         IDWriteFontCollectionLoader collectionLoader,
         in void* collectionKey,
         uint collectionKeySize,
-        out IDWriteFontCollection fontCollection
+        /*out*/ IDWriteFontCollection* fontCollection
         );
     HRESULT RegisterFontCollectionLoader(
         IDWriteFontCollectionLoader fontCollectionLoader
@@ -1675,13 +1675,13 @@ extern(Windows):
     HRESULT CreateFontFileReference(
         in WCHAR* filePath,
         in FILETIME* lastWriteTime,
-        out IDWriteFontFile fontFile
+        /*out*/ IDWriteFontFile* fontFile
         );
     HRESULT CreateCustomFontFileReference(
         in void* fontFileReferenceKey,
         uint fontFileReferenceKeySize,
         IDWriteFontFileLoader fontFileLoader,
-        out IDWriteFontFile fontFile
+        /*out*/ IDWriteFontFile* fontFile
         );
     HRESULT CreateFontFace(
         DWRITE_FONT_FACE_TYPE fontFaceType,
@@ -1689,14 +1689,14 @@ extern(Windows):
         in IDWriteFontFile* fontFiles,
         uint faceIndex,
         DWRITE_FONT_SIMULATIONS fontFaceSimulationFlags,
-        out IDWriteFontFace fontFace
+        /*out*/ IDWriteFontFace* fontFace
         );
     HRESULT CreateRenderingParams(
-        out IDWriteRenderingParams renderingParams
+        /*out*/ IDWriteRenderingParams* renderingParams
         );
     HRESULT CreateMonitorRenderingParams(
         HMONITOR monitor,
-        out IDWriteRenderingParams renderingParams
+        /*out*/ IDWriteRenderingParams* renderingParams
         );
     HRESULT CreateCustomRenderingParams(
         float gamma,
@@ -1704,7 +1704,7 @@ extern(Windows):
         float clearTypeLevel,
         DWRITE_PIXEL_GEOMETRY pixelGeometry,
         DWRITE_RENDERING_MODE renderingMode,
-        out IDWriteRenderingParams renderingParams
+        /*out*/ IDWriteRenderingParams* renderingParams
         );
     HRESULT RegisterFontFileLoader(
         IDWriteFontFileLoader fontFileLoader
@@ -1720,13 +1720,13 @@ extern(Windows):
         DWRITE_FONT_STRETCH fontStretch,
         float fontSize,
         in WCHAR* localeName,
-        out IDWriteTextFormat textFormat
+        /*out*/ IDWriteTextFormat* textFormat
         );
     HRESULT CreateTypography(
-        out IDWriteTypography typography
+        /*out*/ IDWriteTypography* typography
         );
     HRESULT GetGdiInterop(
-        out IDWriteGdiInterop gdiInterop
+        /*out*/ IDWriteGdiInterop* gdiInterop
         );
     HRESULT CreateTextLayout(
         in WCHAR* string,
@@ -1734,7 +1734,7 @@ extern(Windows):
         IDWriteTextFormat textFormat,
         float maxWidth,
         float maxHeight,
-        out IDWriteTextLayout textLayout
+        /*out*/ IDWriteTextLayout* textLayout
         );
     HRESULT CreateGdiCompatibleTextLayout(
         in WCHAR* string,
@@ -1745,20 +1745,20 @@ extern(Windows):
         float pixelsPerDip,
         in DWRITE_MATRIX* transform,
         BOOL useGdiNatural,
-        out IDWriteTextLayout textLayout
+        /*out*/ IDWriteTextLayout* textLayout
         );
     HRESULT CreateEllipsisTrimmingSign(
         IDWriteTextFormat textFormat,
-        out IDWriteInlineObject trimmingSign
+        /*out*/ IDWriteInlineObject* trimmingSign
         );
     HRESULT CreateTextAnalyzer(
-        out IDWriteTextAnalyzer textAnalyzer
+        /*out*/ IDWriteTextAnalyzer* textAnalyzer
         );
     HRESULT CreateNumberSubstitution(
         DWRITE_NUMBER_SUBSTITUTION_METHOD substitutionMethod,
         in WCHAR* localeName,
         BOOL ignoreUserOverride,
-        out IDWriteNumberSubstitution numberSubstitution
+        /*out*/ IDWriteNumberSubstitution* numberSubstitution
         );
     HRESULT CreateGlyphRunAnalysis(
         in DWRITE_GLYPH_RUN* glyphRun,
@@ -1768,7 +1768,7 @@ extern(Windows):
         DWRITE_MEASURING_MODE measuringMode,
         float baselineOriginX,
         float baselineOriginY,
-        out IDWriteGlyphRunAnalysis glyphRunAnalysis
+        /*out*/ IDWriteGlyphRunAnalysis* glyphRunAnalysis
         );
 
 }
@@ -1779,7 +1779,7 @@ extern(Windows)
 HRESULT DWriteCreateFactory(
     DWRITE_FACTORY_TYPE factoryType,
     REFIID iid,
-    out IUnknown factory
+    /*out*/ IUnknown* factory
     );
 }
 

@@ -203,7 +203,7 @@ extern(C)
 {
 uint XInputGetState(
     uint dwUserIndex,
-    out XINPUT_STATE pState
+    /*out*/ XINPUT_STATE* pState
     );
 
     
@@ -216,7 +216,7 @@ uint XInputSetState(
 uint XInputGetCapabilities(
     uint dwUserIndex,
     uint dwFlags,
-    out XINPUT_CAPABILITIES pCapabilities
+    /*out*/ XINPUT_CAPABILITIES* pCapabilities
     );
 
 
@@ -227,22 +227,22 @@ void XInputEnable(
 
 uint XInputGetDSoundAudioDeviceGuids(
     uint dwUserIndex,
-    out GUID pDSoundRenderGuid,
-    out GUID pDSoundCaptureGuid
+    /*out*/ GUID* pDSoundRenderGuid,
+    /*out*/ GUID* pDSoundCaptureGuid
     );
 
 
 uint XInputGetBatteryInformation(
     uint dwUserIndex,
     ubyte devType,
-    out XINPUT_BATTERY_INFORMATION pBatteryInformation
+    /*out*/ XINPUT_BATTERY_INFORMATION* pBatteryInformation
     );
 
 
 uint XInputGetKeystroke(
     uint dwUserIndex,
     uint dwReserved,
-    out XINPUT_KEYSTROKE pKeystroke
+    /*out*/ XINPUT_KEYSTROKE* pKeystroke
     );
 }
 

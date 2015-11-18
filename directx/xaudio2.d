@@ -524,11 +524,11 @@ interface IXAudio2 : IUnknown
 {
 extern(Windows):
     HRESULT GetDeviceCount(
-        out uint pCount
+        /*out*/ uint* pCount
         );
     HRESULT GetDeviceDetails(
         uint Index,
-        out XAUDIO2_DEVICE_DETAILS pDeviceDetails
+        /*out*/ XAUDIO2_DEVICE_DETAILS* pDeviceDetails
         );
     HRESULT Initialize(
         uint Flags = 0,
@@ -541,7 +541,7 @@ extern(Windows):
         IXAudio2EngineCallback pCallback
         );
     HRESULT CreateSourceVoice(
-        out IXAudio2SourceVoice ppSourceVoice,
+        /*out*/ IXAudio2SourceVoice* ppSourceVoice,
         in WAVEFORMATEX* pSourceFormat,
         uint Flags = 0,
         float MaxFrequencyRatio = XAUDIO2_DEFAULT_FREQ_RATIO,
@@ -550,7 +550,7 @@ extern(Windows):
         in XAUDIO2_EFFECT_CHAIN* pEffectChain = null
         );
     HRESULT CreateSubmixVoice(
-        out IXAudio2SubmixVoice ppSubmixVoice,
+        /*out*/ IXAudio2SubmixVoice* ppSubmixVoice,
         uint InputChannels,
         uint InputSampleRate,
         uint Flags = 0,
@@ -559,7 +559,7 @@ extern(Windows):
         in XAUDIO2_EFFECT_CHAIN* pEffectChain = null
         );
     HRESULT CreateMasteringVoice(
-        out IXAudio2MasteringVoice ppMasteringVoice,
+        /*out*/ IXAudio2MasteringVoice* ppMasteringVoice,
         uint InputChannels = XAUDIO2_DEFAULT_CHANNELS,
         uint InputSampleRate = XAUDIO2_DEFAULT_SAMPLERATE,
         uint Flags = 0,
@@ -574,7 +574,7 @@ extern(Windows):
         uint OperationSet
         );
     void GetPerformanceData(
-        out XAUDIO2_PERFORMANCE_DATA pPerfData
+        /*out*/ XAUDIO2_PERFORMANCE_DATA* pPerfData
         );
     void SetDebugConfiguration(
         in XAUDIO2_DEBUG_CONFIGURATION* pDebugConfiguration,
@@ -608,7 +608,7 @@ extern(Windows):
         IXAudio2EngineCallback pCallback
         );
     HRESULT CreateSourceVoice(
-        out IXAudio2SourceVoice ppSourceVoice,
+        /*out*/ IXAudio2SourceVoice* ppSourceVoice,
         in WAVEFORMATEX* pSourceFormat,
         uint Flags = 0,
         float MaxFrequencyRatio = XAUDIO2_DEFAULT_FREQ_RATIO,
@@ -617,7 +617,7 @@ extern(Windows):
         in XAUDIO2_EFFECT_CHAIN* pEffectChain = null
         );
     HRESULT CreateSubmixVoice(
-        out IXAudio2SubmixVoice ppSubmixVoice,
+        /*out*/ IXAudio2SubmixVoice* ppSubmixVoice,
         uint InputChannels,
         uint InputSampleRate,
         uint Flags = 0,
@@ -626,7 +626,7 @@ extern(Windows):
         in XAUDIO2_EFFECT_CHAIN* pEffectChain = null
         );
     HRESULT CreateMasteringVoice(
-        out IXAudio2MasteringVoice ppMasteringVoice,
+        /*out*/ IXAudio2MasteringVoice* ppMasteringVoice,
         uint InputChannels = XAUDIO2_DEFAULT_CHANNELS,
         uint InputSampleRate = XAUDIO2_DEFAULT_SAMPLERATE,
         uint Flags = 0,
@@ -642,7 +642,7 @@ extern(Windows):
         uint OperationSet
         );
     void GetPerformanceData(
-        out XAUDIO2_PERFORMANCE_DATA pPerfData
+        /*out*/ XAUDIO2_PERFORMANCE_DATA* pPerfData
         );
     void SetDebugConfiguration(
         in XAUDIO2_DEBUG_CONFIGURATION* pDebugConfiguration,
@@ -656,7 +656,7 @@ interface IXAudio2Voice : IUnknown
 {
 extern(Windows):
     void GetVoiceDetails(
-        out XAUDIO2_VOICE_DETAILS pVoiceDetails
+        /*out*/ XAUDIO2_VOICE_DETAILS* pVoiceDetails
         );
     HRESULT SetOutputVoices(
         in XAUDIO2_VOICE_SENDS* pSendList
@@ -674,7 +674,7 @@ extern(Windows):
         );
     void GetEffectState(
         uint EffectIndex,
-        out BOOL pEnabled
+        /*out*/ BOOL* pEnabled
         );
     HRESULT SetEffectParameters(
         uint EffectIndex,
@@ -691,7 +691,7 @@ extern(Windows):
         uint OperationSet = XAUDIO2_COMMIT_NOW
         );
     void GetFilterParameters(
-        out XAUDIO2_FILTER_PARAMETERS pParameters
+        /*out*/ XAUDIO2_FILTER_PARAMETERS* pParameters
         );
     HRESULT SetOutputFilterParameters(
         IXAudio2Voice pDestinationVoice,
@@ -700,14 +700,14 @@ extern(Windows):
         );
     void GetOutputFilterParameters(
         IXAudio2Voice pDestinationVoice,
-        out XAUDIO2_FILTER_PARAMETERS pParameters
+        /*out*/ XAUDIO2_FILTER_PARAMETERS* pParameters
         );
     HRESULT SetVolume(
         float Volume,
         uint OperationSet = XAUDIO2_COMMIT_NOW
         );
     void GetVolume(
-        out float pVolume
+        /*out*/ float* pVolume
         );
     HRESULT SetChannelVolumes(
         uint Channels,
@@ -761,13 +761,13 @@ extern(Windows):
 version(DXSDK_11_0)
 {
     void GetState(
-        out XAUDIO2_VOICE_STATE pVoiceState
+        /*out*/ XAUDIO2_VOICE_STATE* pVoiceState
         );
 }
 else version(DXSDK_11_1)
 {
     void GetState(
-				  out XAUDIO2_VOICE_STATE pVoiceState,
+				  /*out*/ XAUDIO2_VOICE_STATE* pVoiceState,
 				  uint Flags
 				  );
 }
@@ -780,7 +780,7 @@ else
         uint OperationSet = XAUDIO2_COMMIT_NOW
         );
     void GetFrequencyRatio(
-        out float pRatio
+        /*out*/ float* pRatio
         );
     HRESULT SetSourceSampleRate(
         uint NewSourceSampleRate
@@ -799,7 +799,7 @@ interface IXAudio2MasteringVoice : IXAudio2Voice
 extern(Windows):
 version(DXSDK_11_1)
 {
-	HRESULT GetChannelMask(out uint ChannelMask);
+	HRESULT GetChannelMask(/*out*/ uint* ChannelMask);
 }
 }
 
@@ -904,7 +904,7 @@ version(DXSDK_11_0)
 
 
 	HRESULT XAudio2Create(
-						  out IXAudio2 ppXAudio2,
+						  /*out*/ IXAudio2* ppXAudio2,
 						  uint Flags = 0,
 						  XAUDIO2_PROCESSOR XAudio2Processor = XAUDIO2_WINDOWS_PROCESSOR_SPECIFIER.XAUDIO2_DEFAULT_PROCESSOR
 							  )
@@ -940,7 +940,7 @@ version(DXSDK_11_1)
 {
 
 	HRESULT XAudio2Create(
-						  out IXAudio2 ppXAudio2,
+						  /*out*/ IXAudio2* ppXAudio2,
 						  uint Flags = 0,
 						  XAUDIO2_PROCESSOR XAudio2Processor = XAUDIO2_WINDOWS_PROCESSOR_SPECIFIER.XAUDIO2_DEFAULT_PROCESSOR
 							  );

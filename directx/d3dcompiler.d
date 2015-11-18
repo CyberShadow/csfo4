@@ -137,7 +137,7 @@ HRESULT D3DCompile(
     in char* pTarget,
     uint Flags1,
     uint Flags2,
-    out ID3DBlob ppCode,
+    /*out*/ ID3DBlob* ppCode,
     /*optional*/ ID3DBlob* ppErrorMsgs = null
     );
 
@@ -147,14 +147,14 @@ HRESULT D3DPreprocess(
     in char* pSourceName,
     in D3D_SHADER_MACRO* pDefines,
     /*optional*/ ID3DInclude pInclude,
-    out ID3DBlob ppCodeText,
+    /*out*/ ID3DBlob* ppCodeText,
     /*optional*/ ID3DBlob* ppErrorMsgs = null
     );
 
 HRESULT D3DGetDebugInfo(
     in void* pSrcData,
     size_t SrcDataSize,
-    out ID3DBlob ppDebugInfo
+    /*out*/ ID3DBlob* ppDebugInfo
     );
 
 HRESULT D3DReflect(
@@ -168,7 +168,7 @@ HRESULT D3DDisassemble(
     size_t SrcDataSize,
     uint Flags,
     in char* szComments,
-    out ID3DBlob ppDisassembly
+    /*out*/ ID3DBlob* ppDisassembly
     );
 
 /*
@@ -176,33 +176,33 @@ TODOZ: If implementing d3d10effect.h, move this into that file
 HRESULT D3DDisassemble10Effect(
     ID3D10Effect pEffect, 
     uint Flags,
-    out ID3DBlob ppDisassembly
+    /*out*/ ID3DBlob* ppDisassembly
     );
 */
 
 HRESULT D3DGetInputSignatureBlob(
     in void* pSrcData,
     size_t SrcDataSize,
-    out ID3DBlob ppSignatureBlob
+    /*out*/ ID3DBlob* ppSignatureBlob
     );
 
 HRESULT D3DGetOutputSignatureBlob(
     in void* pSrcData,
     size_t SrcDataSize,
-    out ID3DBlob ppSignatureBlob
+    /*out*/ ID3DBlob* ppSignatureBlob
     );
 
 HRESULT D3DGetInputAndOutputSignatureBlob(
     in void* pSrcData,
     size_t SrcDataSize,
-    out ID3DBlob ppSignatureBlob
+    /*out*/ ID3DBlob* ppSignatureBlob
     );
 
 HRESULT D3DStripShader(
     in void* pShaderBytecode,
     size_t BytecodeLength,
     uint uStripFlags,
-    out ID3DBlob ppStrippedBlob
+    /*out*/ ID3DBlob* ppStrippedBlob
     );
 
 HRESULT D3DGetBlobPart(
@@ -210,7 +210,7 @@ HRESULT D3DGetBlobPart(
     size_t SrcDataSize,
     D3D_BLOB_PART Part,
     uint Flags,
-    out ID3DBlob ppPart
+    /*out*/ ID3DBlob* ppPart
     );
 
 HRESULT D3DCompressShaders(
@@ -233,12 +233,12 @@ HRESULT D3DDecompressShaders(
 
 HRESULT D3DCreateBlob(
     size_t Size,
-    out ID3DBlob ppBlob
+    /*out*/ ID3DBlob* ppBlob
     );
 }
 
 
-HRESULT D3DReflect(in ubyte[] shaderData, out ID3D11ShaderReflection reflector)
+HRESULT D3DReflect(in ubyte[] shaderData, /*out*/ ID3D11ShaderReflection* reflector)
 {
 	return D3DReflect(shaderData.ptr, shaderData.length, &IID_ID3D11ShaderReflection, cast(void**)&reflector);
 }

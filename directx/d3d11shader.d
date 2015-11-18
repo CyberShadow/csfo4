@@ -633,7 +633,7 @@ HRESULT D3DX11CompileFromFileA(
     UINT Flags1,
     UINT Flags2,
     ID3DX11ThreadPump pPump,
-    out ID3D11Blob ppShader,
+    /*out*/ ID3D11Blob* ppShader,
     /*optional*/ ID3D11Blob* ppErrorMsgs = null,
     /*optional*/ HRESULT* pHResult = null);
 
@@ -647,7 +647,7 @@ HRESULT D3DX11CompileFromFileW(
     UINT Flags1,
     UINT Flags2,
     ID3DX11ThreadPump pPump,
-    out ID3D11Blob ppShader,
+    /*out*/ ID3D11Blob* ppShader,
     /*optional*/ ID3D11Blob* ppErrorMsgs = null,
     /*optional*/ HRESULT* pHResult = null);
 
@@ -672,7 +672,7 @@ HRESULT D3DCompileFromFile(
     in char* pProfile,
     UINT Flags1,
     UINT Flags2,
-	out ID3D11Blob ppShader,
+	/*out*/ ID3D11Blob* ppShader,
 	/*optional*/ ID3D11Blob* ppErrorMsgs = null);
 }
 }

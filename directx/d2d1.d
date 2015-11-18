@@ -554,7 +554,7 @@ mixin(DX_DECLARE_IID("ID2D1Resource", "2CD90691-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1Resource : IUnknown
 {
 extern(Windows):
-    void GetFactory( out ID2D1Factory factory );
+    void GetFactory( /*out*/ ID2D1Factory* factory );
 }
 
 
@@ -569,8 +569,8 @@ extern(Windows):
     D2D1_PIXEL_FORMAT GetPixelFormat(
         );
     void GetDpi(
-        out float dpiX,
-        out float dpiY
+        /*out*/ float* dpiX,
+        /*out*/ float* dpiY
         );
     HRESULT CopyFromBitmap(
         in D2D1_POINT_2U* destPoint,
@@ -621,7 +621,7 @@ extern(Windows):
     float GetOpacity(
         );
     void GetTransform(
-        out D2D1_MATRIX_3X2_F transform 
+        /*out*/ D2D1_MATRIX_3X2_F* transform 
         );
 }
 
@@ -649,7 +649,7 @@ extern(Windows):
     D2D1_BITMAP_INTERPOLATION_MODE GetInterpolationMode(
         );
     void GetBitmap(
-        out ID2D1Bitmap bitmap 
+        /*out*/ ID2D1Bitmap* bitmap 
         );
 }
 
@@ -681,7 +681,7 @@ extern(Windows):
     D2D1_POINT_2F GetEndPoint(
         );
     void GetGradientStopCollection(
-        out ID2D1GradientStopCollection gradientStopCollection 
+        /*out*/ ID2D1GradientStopCollection* gradientStopCollection 
         );
 }
 
@@ -711,7 +711,7 @@ extern(Windows):
     float GetRadiusY(
         );
     void GetGradientStopCollection(
-        out ID2D1GradientStopCollection gradientStopCollection 
+        /*out*/ ID2D1GradientStopCollection* gradientStopCollection 
         );
 }
 
@@ -749,14 +749,14 @@ interface ID2D1Geometry : ID2D1Resource
 extern(Windows):
     HRESULT GetBounds(
         in D2D1_MATRIX_3X2_F* worldTransform,
-        out D2D1_RECT_F bounds 
+        /*out*/ D2D1_RECT_F* bounds 
         );
     HRESULT GetWidenedBounds(
         float strokeWidth,
         /*optional*/ ID2D1StrokeStyle strokeStyle,
         in D2D1_MATRIX_3X2_F* worldTransform,
         float flatteningTolerance,
-        out D2D1_RECT_F bounds 
+        /*out*/ D2D1_RECT_F* bounds 
         );
     HRESULT StrokeContainsPoint(
         D2D1_POINT_2F point,
@@ -764,19 +764,19 @@ extern(Windows):
         /*optional*/ ID2D1StrokeStyle strokeStyle,
         in D2D1_MATRIX_3X2_F* worldTransform,
         float flatteningTolerance,
-        out BOOL contains 
+        /*out*/ BOOL* contains 
         );
     HRESULT FillContainsPoint(
         D2D1_POINT_2F point,
         in D2D1_MATRIX_3X2_F* worldTransform,
         float flatteningTolerance,
-        out BOOL contains 
+        /*out*/ BOOL* contains 
         );
     HRESULT CompareWithGeometry(
         ID2D1Geometry inputGeometry,
         in D2D1_MATRIX_3X2_F* inputGeometryTransform,
         float flatteningTolerance,
-        out D2D1_GEOMETRY_RELATION relation 
+        /*out*/ D2D1_GEOMETRY_RELATION* relation 
         );
     HRESULT Simplify(
         D2D1_GEOMETRY_SIMPLIFICATION_OPTION simplificationOption,
@@ -804,12 +804,12 @@ extern(Windows):
     HRESULT ComputeArea(
         in D2D1_MATRIX_3X2_F* worldTransform,
         float flatteningTolerance,
-        out float area 
+        /*out*/ float* area 
         );
     HRESULT ComputeLength(
         in D2D1_MATRIX_3X2_F* worldTransform,
         float flatteningTolerance,
-        out float length 
+        /*out*/ float* length 
         );
     HRESULT ComputePointAtLength(
         float length,
@@ -833,7 +833,7 @@ interface ID2D1RectangleGeometry : ID2D1Geometry
 {
 extern(Windows):
     void GetRect(
-        out D2D1_RECT_F rect 
+        /*out*/ D2D1_RECT_F* rect 
         );
 }
 
@@ -843,7 +843,7 @@ interface ID2D1RoundedRectangleGeometry : ID2D1Geometry
 {
 extern(Windows):
     void GetRoundedRect(
-        out D2D1_ROUNDED_RECT roundedRect 
+        /*out*/ D2D1_ROUNDED_RECT* roundedRect 
         );
 }
 
@@ -853,7 +853,7 @@ interface ID2D1EllipseGeometry : ID2D1Geometry
 {
 extern(Windows):
     void GetEllipse(
-        out D2D1_ELLIPSE ellipse 
+        /*out*/ D2D1_ELLIPSE* ellipse 
         );
 }
 
@@ -878,10 +878,10 @@ interface ID2D1TransformedGeometry : ID2D1Geometry
 {
 extern(Windows):
     void GetSourceGeometry(
-        out ID2D1Geometry sourceGeometry 
+        /*out*/ ID2D1Geometry* sourceGeometry 
         );
     void GetTransform(
-        out D2D1_MATRIX_3X2_F transform 
+        /*out*/ D2D1_MATRIX_3X2_F* transform 
         );
 }
 
@@ -958,16 +958,16 @@ interface ID2D1PathGeometry : ID2D1Geometry
 {
 extern(Windows):
     HRESULT Open(
-        out ID2D1GeometrySink geometrySink 
+        /*out*/ ID2D1GeometrySink* geometrySink 
         );
     HRESULT Stream(
         ID2D1GeometrySink geometrySink 
         );
     HRESULT GetSegmentCount(
-        out uint count 
+        /*out*/ uint* count 
         );
     HRESULT GetFigureCount(
-        out uint count 
+        /*out*/ uint* count 
         );
 }
 
@@ -977,7 +977,7 @@ interface ID2D1Mesh : ID2D1Resource
 {
 extern(Windows):
     HRESULT Open(
-        out ID2D1TessellationSink tessellationSink 
+        /*out*/ ID2D1TessellationSink* tessellationSink 
         );
 }
 
@@ -996,7 +996,7 @@ interface ID2D1DrawingStateBlock : ID2D1Resource
 {
 extern(Windows):
     void GetDescription(
-        out D2D1_DRAWING_STATE_DESCRIPTION stateDescription 
+        /*out*/ D2D1_DRAWING_STATE_DESCRIPTION* stateDescription 
         );
     void SetDescription(
         in D2D1_DRAWING_STATE_DESCRIPTION* stateDescription 
@@ -1005,7 +1005,7 @@ extern(Windows):
         /*optional*/ IDWriteRenderingParams textRenderingParams = null
         );
     void GetTextRenderingParams(
-        out IDWriteRenderingParams textRenderingParams 
+        /*out*/ IDWriteRenderingParams* textRenderingParams 
         );
 }
 
@@ -1019,62 +1019,62 @@ extern(Windows):
         in void* srcData,
         uint pitch,
         in D2D1_BITMAP_PROPERTIES* bitmapProperties,
-        out ID2D1Bitmap bitmap 
+        /*out*/ ID2D1Bitmap* bitmap 
         );
     HRESULT CreateBitmapFromWicBitmap(
         IWICBitmapSource wicBitmapSource,
         in D2D1_BITMAP_PROPERTIES* bitmapProperties,
-        out ID2D1Bitmap bitmap 
+        /*out*/ ID2D1Bitmap* bitmap 
         );
     HRESULT CreateSharedBitmap(
         in REFIID riid,
         void* data,
         in D2D1_BITMAP_PROPERTIES* bitmapProperties,
-        out ID2D1Bitmap bitmap 
+        /*out*/ ID2D1Bitmap* bitmap 
         );
     HRESULT CreateBitmapBrush(
         ID2D1Bitmap bitmap,
         in D2D1_BITMAP_BRUSH_PROPERTIES* bitmapBrushProperties,
         in D2D1_BRUSH_PROPERTIES* brushProperties,
-        out ID2D1BitmapBrush bitmapBrush 
+        /*out*/ ID2D1BitmapBrush* bitmapBrush 
         );
     HRESULT CreateSolidColorBrush(
         in D2D1_COLOR_F* color,
         in D2D1_BRUSH_PROPERTIES* brushProperties,
-        out ID2D1SolidColorBrush solidColorBrush 
+        /*out*/ ID2D1SolidColorBrush* solidColorBrush 
         );
     HRESULT CreateGradientStopCollection(
         in D2D1_GRADIENT_STOP* gradientStops,
         uint gradientStopsCount,
         D2D1_GAMMA colorInterpolationGamma,
         D2D1_EXTEND_MODE extendMode,
-        out ID2D1GradientStopCollection gradientStopCollection 
+        /*out*/ ID2D1GradientStopCollection* gradientStopCollection 
         );
     HRESULT CreateLinearGradientBrush(
         in D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES* linearGradientBrushProperties,
         in D2D1_BRUSH_PROPERTIES* brushProperties,
         ID2D1GradientStopCollection gradientStopCollection,
-        out ID2D1LinearGradientBrush linearGradientBrush 
+        /*out*/ ID2D1LinearGradientBrush* linearGradientBrush 
         );
     HRESULT CreateRadialGradientBrush(
         in D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES* radialGradientBrushProperties,
         in D2D1_BRUSH_PROPERTIES* brushProperties,
         ID2D1GradientStopCollection gradientStopCollection,
-        out ID2D1RadialGradientBrush radialGradientBrush 
+        /*out*/ ID2D1RadialGradientBrush* radialGradientBrush 
         );
     HRESULT CreateCompatibleRenderTarget(
         in D2D1_SIZE_F* desiredSize,
         in D2D1_SIZE_U* desiredPixelSize,
         in D2D1_PIXEL_FORMAT* desiredFormat,
         D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS options,
-        out ID2D1BitmapRenderTarget bitmapRenderTarget 
+        /*out*/ ID2D1BitmapRenderTarget* bitmapRenderTarget 
         );
     HRESULT CreateLayer(
         in D2D1_SIZE_F* size,
-        out ID2D1Layer layer 
+        /*out*/ ID2D1Layer* layer 
         );
     HRESULT CreateMesh(
-        out ID2D1Mesh mesh 
+        /*out*/ ID2D1Mesh* mesh 
         );
     void DrawLine(
         D2D1_POINT_2F point0,
@@ -1167,7 +1167,7 @@ extern(Windows):
         in D2D1_MATRIX_3X2_F* transform 
         );
     void GetTransform(
-        out D2D1_MATRIX_3X2_F transform 
+        /*out*/ D2D1_MATRIX_3X2_F* transform 
         );
     void SetAntialiasMode(
         D2D1_ANTIALIAS_MODE antialiasMode 
@@ -1183,7 +1183,7 @@ extern(Windows):
         /*optional*/ IDWriteRenderingParams textRenderingParams = null
         );
     void GetTextRenderingParams(
-        out IDWriteRenderingParams textRenderingParams 
+        /*out*/ IDWriteRenderingParams* textRenderingParams 
         );
     void SetTags(
         D2D1_TAG tag1,
@@ -1231,8 +1231,8 @@ extern(Windows):
         float dpiY 
         );
     void GetDpi(
-        out float dpiX,
-        out float dpiY 
+        /*out*/ float* dpiX,
+        /*out*/ float* dpiY 
         );
     D2D1_SIZE_F GetSize(
         );
@@ -1251,7 +1251,7 @@ interface ID2D1BitmapRenderTarget : ID2D1RenderTarget
 {
 extern(Windows):
     HRESULT GetBitmap(
-        out ID2D1Bitmap bitmap 
+        /*out*/ ID2D1Bitmap* bitmap 
         );
 }
 
@@ -1276,7 +1276,7 @@ interface ID2D1GdiInteropRenderTarget : IUnknown
 extern(Windows):
     HRESULT GetDC(
         D2D1_DC_INITIALIZE_MODE mode,
-        out HDC hdc 
+        /*out*/ HDC* hdc 
         );
     HRESULT ReleaseDC(
         in RECT* update 
@@ -1302,64 +1302,64 @@ extern(Windows):
     HRESULT ReloadSystemMetrics(
         );
     void GetDesktopDpi(
-        out float dpiX,
-        out float dpiY 
+        /*out*/ float* dpiX,
+        /*out*/ float* dpiY 
         );
     HRESULT CreateRectangleGeometry(
         in D2D1_RECT_F* rectangle,
-        out ID2D1RectangleGeometry rectangleGeometry 
+        /*out*/ ID2D1RectangleGeometry* rectangleGeometry 
         );
     HRESULT CreateRoundedRectangleGeometry(
         in D2D1_ROUNDED_RECT* roundedRectangle,
-        out ID2D1RoundedRectangleGeometry roundedRectangleGeometry 
+        /*out*/ ID2D1RoundedRectangleGeometry* roundedRectangleGeometry 
         );
     HRESULT CreateEllipseGeometry(
         in D2D1_ELLIPSE* ellipse,
-        out ID2D1EllipseGeometry ellipseGeometry 
+        /*out*/ ID2D1EllipseGeometry* ellipseGeometry 
         );
     HRESULT CreateGeometryGroup(
         D2D1_FILL_MODE fillMode,
         ID2D1Geometry* geometriesCArray,
         uint geometriesCount,
-        out ID2D1GeometryGroup geometryGroup 
+        /*out*/ ID2D1GeometryGroup* geometryGroup 
         );
     HRESULT CreateTransformedGeometry(
         ID2D1Geometry sourceGeometry,
         in D2D1_MATRIX_3X2_F* transform,
-        out ID2D1TransformedGeometry transformedGeometry 
+        /*out*/ ID2D1TransformedGeometry* transformedGeometry 
         );
     HRESULT CreatePathGeometry(
-        out ID2D1PathGeometry pathGeometry 
+        /*out*/ ID2D1PathGeometry* pathGeometry 
         );
     HRESULT CreateStrokeStyle(
         in D2D1_STROKE_STYLE_PROPERTIES* strokeStyleProperties,
         in float* dashes,
         uint dashesCount,
-        out ID2D1StrokeStyle strokeStyle 
+        /*out*/ ID2D1StrokeStyle* strokeStyle 
         );
     HRESULT CreateDrawingStateBlock(
         in D2D1_DRAWING_STATE_DESCRIPTION* drawingStateDescription,
         IDWriteRenderingParams textRenderingParams,
-        out ID2D1DrawingStateBlock drawingStateBlock 
+        /*out*/ ID2D1DrawingStateBlock* drawingStateBlock 
         );
     HRESULT CreateWicBitmapRenderTarget(
         IWICBitmap target,
         in D2D1_RENDER_TARGET_PROPERTIES* renderTargetProperties,
-        out ID2D1RenderTarget renderTarget 
+        /*out*/ ID2D1RenderTarget* renderTarget 
         );
     HRESULT CreateHwndRenderTarget(
         in D2D1_RENDER_TARGET_PROPERTIES* renderTargetProperties,
         in D2D1_HWND_RENDER_TARGET_PROPERTIES* hwndRenderTargetProperties,
-        out ID2D1HwndRenderTarget hwndRenderTarget 
+        /*out*/ ID2D1HwndRenderTarget* hwndRenderTarget 
         );
     HRESULT CreateDxgiSurfaceRenderTarget(
         IDXGISurface dxgiSurface,
         in D2D1_RENDER_TARGET_PROPERTIES* renderTargetProperties,
-        out ID2D1RenderTarget renderTarget 
+        /*out*/ ID2D1RenderTarget* renderTarget 
         );
     HRESULT CreateDCRenderTarget(
         in D2D1_RENDER_TARGET_PROPERTIES* renderTargetProperties,
-        out ID2D1DCRenderTarget dcRenderTarget 
+        /*out*/ ID2D1DCRenderTarget* dcRenderTarget 
         );
 }
 
@@ -1375,13 +1375,13 @@ HRESULT D2D1CreateFactory(
 void D2D1MakeRotateMatrix(
     float angle,
     D2D1_POINT_2F center,
-    out D2D1_MATRIX_3X2_F matrix
+    /*out*/ D2D1_MATRIX_3X2_F* matrix
     );
 void D2D1MakeSkewMatrix(
     float angleX,
     float angleY,
     D2D1_POINT_2F center,
-    out D2D1_MATRIX_3X2_F matrix
+    /*out*/ D2D1_MATRIX_3X2_F* matrix
     );
 BOOL D2D1IsMatrixInvertible(
     in D2D1_MATRIX_3X2_F* matrix
