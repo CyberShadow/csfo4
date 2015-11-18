@@ -1,5 +1,7 @@
 module mapfix.common.hook;
 
+import std.traits;
+
 import core.sys.windows.winbase;
 import core.sys.windows.windef;
 
@@ -52,5 +54,33 @@ nothrow @nogc:
 	void unhook()
 	{
 		target[0..trampolineLength] = origCode[];
+	}
+}
+
+struct FunctionHook(alias original, alias callback)
+{
+	static assert(is(typeof(&original) == typeof(&callback)));
+	alias Fun = typeof(&original);
+
+	Hook hook;
+	Fun origPtr;
+
+	void initialize(const char* dll, const char* fun)
+	{
+		origPtr = cast(Fun) GetProcAddress(GetModuleHandleA(dll), fun);
+		hook = Hook(origPtr, &callback);
+	}
+
+	void finalize()
+	{
+		hook.unhook();
+	}
+
+	ReturnType!original callNext(Parameters!original args)
+	{
+		hook.unhook();
+		ReturnType!original result = origPtr(args);
+		hook.hook();
+		return result;
 	}
 }

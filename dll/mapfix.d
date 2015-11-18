@@ -27,20 +27,17 @@ BOOL DllEntryPoint(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved) nothr
 	return TRUE;
 }
 
-Hook hkSend = void;
-alias send_t = typeof(&send);
-send_t sendOrig;
+FunctionHook!(send, sendMy) hkSend = void;
 
 void initialize()
 {
 	//MessageBoxA(null, "Hello from DLL\n", "mapfix", 0);
-	sendOrig = cast(send_t) GetProcAddress(GetModuleHandleA("ws2_32.dll"), "send");
-	hkSend = Hook(sendOrig, &sendMy);
+	hkSend.initialize("ws2_32.dll", "send");
 }
 
 void shutdown()
 {
-	hkSend.unhook();
+	hkSend.finalize();
 }
 
 align(1)
@@ -104,8 +101,5 @@ int sendMy(SOCKET s, const(void)* buf, int len, int flags)
 		}
 	}
 
-	hkSend.unhook();
-	auto result = sendOrig(s, buf, len, flags);
-	hkSend.hook();
-	return result;
+	return hkSend.callNext(s, buf, len, flags);
 }
