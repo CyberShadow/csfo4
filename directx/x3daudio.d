@@ -185,5 +185,5 @@ void X3DAudioCalculate(
     in X3DAUDIO_LISTENER* pListener,
     in X3DAUDIO_EMITTER* pEmitter,
     uint Flags,
-    ref X3DAUDIO_DSP_SETTINGS pDSPSettings);
+    /*ref*/ X3DAUDIO_DSP_SETTINGS* pDSPSettings);
 }

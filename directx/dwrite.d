@@ -816,7 +816,7 @@ extern(Windows):
     DWRITE_FONT_FACE_TYPE GetType(
         );
     HRESULT GetFiles(
-        ref uint numberOfFiles,
+        /*ref*/ uint* numberOfFiles,
         IDWriteFontFile* fontFiles
         );
     uint GetIndex(

@@ -1866,7 +1866,7 @@ extern(Windows):
         );
     HRESULT GetPrivateData(
         GUID* guid,
-        ref uint pDataSize,
+        /*ref*/ uint* pDataSize,
         void* pData
         );
     HRESULT SetPrivateData(
@@ -2118,11 +2118,11 @@ extern(Windows):
         );
     void GetInstanceName(
         char* pInstanceName,
-        ref size_t pBufferLength
+        /*ref*/ size_t* pBufferLength
         );
     void GetTypeName(
         char* pTypeName,
-        ref size_t pBufferLength
+        /*ref*/ size_t* pBufferLength
         );
 }
 
@@ -2574,7 +2574,7 @@ extern(Windows):
         );
     void OMGetBlendState(
         /*out*/ ID3D11BlendState* ppBlendState,
-        ref D3D11COLORVALUE BlendFactor,
+        /*ref*/ D3D11COLORVALUE* BlendFactor,
         uint* pSampleMask
         );
     void OMGetDepthStencilState(
@@ -2589,11 +2589,11 @@ extern(Windows):
         /*out*/ ID3D11RasterizerState* ppRasterizerState
         );
     void RSGetViewports(
-        ref uint pNumViewports,
+        /*ref*/ uint* pNumViewports,
         /*optional*/ D3D11_VIEWPORT* pViewportsCArray
         );
     void RSGetScissorRects(
-        ref uint pNumRects,
+        /*ref*/ uint* pNumRects,
         /*optional*/ D3D11_RECT* pRectsCArray
         );
     void HSGetShaderResources(
@@ -2604,7 +2604,7 @@ extern(Windows):
     void HSGetShader(
         /*out*/ ID3D11HullShader* ppHullShader,
         /*optional*/ ID3D11ClassInstance* ppClassInstancesCArray,
-        /*optional*/ ref uint pNumClassInstancesCArray
+        /*optional*/ /*ref*/ uint* pNumClassInstancesCArray
         );
     void HSGetSamplers(
         uint StartSlot,
@@ -2624,7 +2624,7 @@ extern(Windows):
     void DSGetShader(
         /*out*/ ID3D11DomainShader* ppDomainShader,
         /*optional*/ ID3D11ClassInstance* ppClassInstancesCArray,
-        /*optional*/ ref uint pNumClassInstances
+        /*optional*/ /*ref*/ uint* pNumClassInstances
         );
     void DSGetSamplers(
         uint StartSlot,
@@ -2649,7 +2649,7 @@ extern(Windows):
     void CSGetShader(
         /*out*/ ID3D11ComputeShader* ppComputeShader,
         /*optional*/ ID3D11ClassInstance* ppClassInstancesCArray,
-        /*optional*/ ref uint pNumClassInstances
+        /*optional*/ /*ref*/ uint* pNumClassInstances
         );
     void CSGetSamplers(
         uint StartSlot,
@@ -2844,7 +2844,7 @@ extern(Windows):
         );
     HRESULT GetPrivateData(
         GUID* guid,
-        ref uint pDataSize,
+        /*ref*/ uint* pDataSize,
         void* pData
         );
     HRESULT SetPrivateData(
