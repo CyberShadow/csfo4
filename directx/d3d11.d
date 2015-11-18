@@ -1,13 +1,13 @@
 // D Bindings for DirectX
 // Ported by Sean Cavanaugh - WorksOnMyMachine@gmail.com
 
-module win32.directx.d3d11;
+module mapfix.directx.d3d11;
 
 
-import win32.directx.dxinternal;
-public import win32.directx.dxpublic;
-import win32.directx.dxgi;
-import win32.directx.d3d11shader;
+import mapfix.directx.dxinternal;
+public import mapfix.directx.dxpublic;
+import mapfix.directx.dxgi;
+import mapfix.directx.d3d11shader;
 import win32.windows;
 import std.c.windows.com;
 import std.string;

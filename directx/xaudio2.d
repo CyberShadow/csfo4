@@ -1,11 +1,11 @@
 // D Bindings for DirectX
 // Ported by Sean Cavanaugh - WorksOnMyMachine@gmail.com
 
-module win32.directx.xaudio2;
+module mapfix.directx.xaudio2;
 
 
-import win32.directx.dxinternal;
-public import win32.directx.dxpublic;
+import mapfix.directx.dxinternal;
+public import mapfix.directx.dxpublic;
 import win32.windows;
 import std.c.windows.com;
 import core.stdc.math;

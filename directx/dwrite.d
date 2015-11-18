@@ -1,11 +1,11 @@
 // D Bindings for DirectWrite
 // Ported by Sean Cavanaugh - WorksOnMyMachine@gmail.com
 
-module win32.directx.dwrite;
+module mapfix.directx.dwrite;
 
 
-import win32.directx.dxinternal;
-import win32.directx.d2d1;
+import mapfix.directx.dxinternal;
+import mapfix.directx.d2d1;
 import win32.windows;
 import std.bitmanip;
 import std.c.windows.com;

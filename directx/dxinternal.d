@@ -1,10 +1,10 @@
 // D Bindings for DirectX
 // Ported by Sean Cavanaugh - WorksOnMyMachine@gmail.com
 
-module win32.directx.dxinternal;
+module mapfix.directx.dxinternal;
 
 
-public import win32.directx.dxpublic;
+public import mapfix.directx.dxpublic;
 import std.c.windows.com;
 
 
