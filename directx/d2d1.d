@@ -9,7 +9,7 @@ public import mapfix.directx.dxpublic;
 import mapfix.directx.dxgi;
 import mapfix.directx.dwrite;
 import std.c.windows.com;
-import win32.windows;
+import core.sys.windows.windows;
 
 
 alias std.c.windows.com.IUnknown IUnknown;

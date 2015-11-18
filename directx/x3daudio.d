@@ -7,7 +7,7 @@ module mapfix.directx.x3daudio;
 import mapfix.directx.dxinternal;
 public import mapfix.directx.dxpublic;
 import mapfix.directx.xaudio2;
-import win32.windows;
+import core.sys.windows.windows;
 import std.c.windows.com;
 import core.stdc.math;
 

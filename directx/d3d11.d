@@ -8,7 +8,7 @@ import mapfix.directx.dxinternal;
 public import mapfix.directx.dxpublic;
 import mapfix.directx.dxgi;
 import mapfix.directx.d3d11shader;
-import win32.windows;
+import core.sys.windows.windows;
 import std.c.windows.com;
 import std.string;
 import std.utf;

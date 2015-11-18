@@ -6,7 +6,7 @@ module mapfix.directx.dwrite;
 
 import mapfix.directx.dxinternal;
 import mapfix.directx.d2d1;
-import win32.windows;
+import core.sys.windows.windows;
 import std.bitmanip;
 import std.c.windows.com;
 
