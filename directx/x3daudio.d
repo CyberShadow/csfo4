@@ -173,7 +173,7 @@ struct X3DAUDIO_DSP_SETTINGS
 }
 
 
-extern(Windows)
+extern(Windows) nothrow @nogc
 {
 void X3DAudioInitialize(
     uint SpeakerChannelMask,

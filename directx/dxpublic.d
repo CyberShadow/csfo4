@@ -129,7 +129,7 @@ mixin(DX_DECLARE_IID("ID3D10Blob", "8BA5FB08-5195-40e2-AC58-0D989C3A0102"));
 mixin(DX_DECLARE_IID("ID3D11Blob", "8BA5FB08-5195-40e2-AC58-0D989C3A0102"));
 interface ID3DBlob : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void* GetBufferPointer(
         );
     size_t GetBufferSize(
@@ -151,7 +151,7 @@ alias D3D_INCLUDE_TYPE D3D_INCLUDE;
 // in order to override the behavior of #include in HLSL shaders
 interface ID3DInclude : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void Open(
         D3D_INCLUDE_TYPE IncludeType,
         in char* pFileName,

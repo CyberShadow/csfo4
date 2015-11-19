@@ -125,7 +125,7 @@ struct D3D_SHADER_DATA
 // D3DCompiler Interfaces
 
 
-extern(Windows)
+extern(Windows) nothrow @nogc
 {
 HRESULT D3DCompile(
     in void* pSrcData,

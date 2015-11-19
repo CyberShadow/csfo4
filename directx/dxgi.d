@@ -535,7 +535,7 @@ struct DXGI_DISPLAY_COLOR_SPACE
 mixin(DX_DECLARE_IID("IDXGIObject", "AEC22FB8-76F3-4639-9BE0-28EB43A67A2E"));
 interface IDXGIObject : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT SetPrivateData(
         GUID* Name,
         uint DataSize,
@@ -560,7 +560,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGIDeviceSubObject", "3D3E0379-F9DE-4D58-BB6C-18D62992F1A6"));
 interface IDXGIDeviceSubObject : IDXGIObject
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetDevice(
         IID* riid,
         void** ppDevice
@@ -571,7 +571,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGIResource", "035F3AB4-482E-4E50-B41F-8A7F8BD8960B"));
 interface IDXGIResource : IDXGIDeviceSubObject
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetSharedHandle(
         /*out*/ HANDLE* pSharedHandle
         );
@@ -590,7 +590,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGIKeyedMutex", "9D8E1289-D7B3-465F-8126-250E349AF85D"));
 interface IDXGIKeyedMutex : IDXGIDeviceSubObject
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT AcquireSync(
         ulong Key,
         uint dwMilliseconds
@@ -604,7 +604,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGISurface", "CAFCB56C-6AC3-4889-BF47-9E23BBD260EC"));
 interface IDXGISurface : IDXGIDeviceSubObject
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetDesc(
         /*out*/ DXGI_SURFACE_DESC* pDesc
         );
@@ -620,7 +620,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGISurface1", "4AE63092-6327-4C1B-80AE-BFE12EA32B86"));
 interface IDXGISurface1 : IDXGISurface
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetDC(
         BOOL Discard,
         /*out*/ HDC* phdc
@@ -634,7 +634,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGIAdapter", "2411E7E1-12AC-4CCF-BD14-9798E8534DC0"));
 interface IDXGIAdapter : IDXGIObject
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT EnumOutputs(
         uint Output,
         /*out*/ IDXGIOutput* ppOutput
@@ -652,7 +652,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGIOutput", "AE02EEDB-C735-4690-8D52-5A8DC20213AA"));
 interface IDXGIOutput : IDXGIObject
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetDesc(
         /*out*/ DXGI_OUTPUT_DESC* pDesc
         );
@@ -698,7 +698,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGISwapChain", "310D36A0-D2E7-4C0A-AA04-6A9D23B8886A"));
 interface IDXGISwapChain : IDXGIDeviceSubObject
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT Present(
         uint SyncInterval,
         uint Flags
@@ -744,7 +744,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGIFactory", "7B7166EC-21C7-44AE-B21A-C9AE321AE369"));
 interface IDXGIFactory : IDXGIObject
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT EnumAdapters(
         uint Adapter,
         /*out*/ IDXGIAdapter* ppAdapter
@@ -770,7 +770,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGIDevice", "54EC77FA-1377-44E6-8C32-88FD5F44C84C"));
 interface IDXGIDevice : IDXGIObject
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetAdapter(
         /*out*/ IDXGIAdapter* pAdapter
         );
@@ -798,7 +798,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGIFactory1", "770AAE78-F26F-4DBA-A829-253C83D1B387"));
 interface IDXGIFactory1 : IDXGIFactory
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT EnumAdapters1(
         uint Adapter,
         /*out*/ IDXGIAdapter1* ppAdapter
@@ -811,7 +811,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGIAdapter1", "29038F61-3839-4626-91FD-086879011A05"));
 interface IDXGIAdapter1 : IDXGIAdapter
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetDesc1(
         /*out*/ DXGI_ADAPTER_DESC1* pDesc
         );
@@ -821,7 +821,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDXGIDevice1", "77DB970F-6276-48BA-BA28-070143B4392C"));
 interface IDXGIDevice1 : IDXGIDevice
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT SetMaximumFrameLatency(
         uint MaxLatency
         );
@@ -832,7 +832,7 @@ extern(Windows):
 
 
 
-extern(Windows)
+extern(Windows) nothrow @nogc
 {
     HRESULT CreateDXGIFactory(in IID* riid, void** ppFactory);
     HRESULT CreateDXGIFactory1(in IID* riid, void** ppFactory);

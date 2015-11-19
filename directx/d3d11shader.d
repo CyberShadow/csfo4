@@ -465,7 +465,7 @@ extern (C++)
 // Note that ID3D11ShaderReflectionType does NOT inherit from IUnknown and is not a true COM interface
 interface ID3D11ShaderReflectionType
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetDesc(
         D3D11_SHADER_TYPE_DESC* pDesc
         );
@@ -506,7 +506,7 @@ extern(C++)
 // Note that ID3D11ShaderReflectionVariable does NOT inherit from IUnknown and is not a true COM interface
 interface ID3D11ShaderReflectionVariable
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetDesc(
         D3D11_SHADER_VARIABLE_DESC* pDesc
         );
@@ -527,7 +527,7 @@ extern (C++)
 // Note that ID3D11ShaderReflectionConstantBuffer does NOT inherit from IUnknown and is not a true COM interface
 interface ID3D11ShaderReflectionConstantBuffer
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetDesc(
         D3D11_SHADER_BUFFER_DESC* pDesc
         );
@@ -554,7 +554,7 @@ else
 }
 interface ID3D11ShaderReflection : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetDesc(
         D3D11_SHADER_DESC* pDesc
         );
@@ -620,7 +620,7 @@ alias D3D_SHADER_MACRO D3D11_SHADER_MACRO;
 alias IUnknown ID3DX11ThreadPump;   // This defined from D3DX11core, which is unsupported for the time being
 
 
-extern(Windows)
+extern(Windows) nothrow @nogc
 {
 version(DXSDK_11_0)
 {

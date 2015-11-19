@@ -718,7 +718,7 @@ struct DWRITE_HIT_TEST_METRICS
 mixin(DX_DECLARE_IID("IDWriteFontFileLoader", "727CAD4E-D6AF-4C9E-8A08-D695B11CAA49"));
 interface IDWriteFontFileLoader : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT CreateStreamFromKey(
         in void* fontFileReferenceKey,
         uint fontFileReferenceKeySize,
@@ -730,7 +730,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteLocalFontFileLoader", "B2D9F3EC-C9FE-4A11-A2EC-D86208F7C0A2"));
 interface IDWriteLocalFontFileLoader : IDWriteFontFileLoader
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetFilePathLengthFromKey(
         in void* fontFileReferenceKey,
         uint fontFileReferenceKeySize,
@@ -753,7 +753,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteFontFileStream", "6D4865FE-0AB8-4D91-8F62-5DD6BE34A3E0"));
 interface IDWriteFontFileStream : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT ReadFileFragment(
         void** fragmentStart,
         ulong fileOffset,
@@ -775,7 +775,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteFontFile", "739D886A-CEF5-47DC-8769-1A8B41BEBBB0"));
 interface IDWriteFontFile : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetReferenceKey(
         void** fontFileReferenceKey,
         /*out*/ uint* fontFileReferenceKeySize
@@ -795,7 +795,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteRenderingParams", "2F0DA53A-2ADD-47CD-82EE-D9EC34688E75"));
 interface IDWriteRenderingParams : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     float GetGamma(
         );
     float GetEnhancedContrast(
@@ -812,7 +812,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteFontFace", "5F49804D-7024-4D43-BFA9-D25984F53849"));
 interface IDWriteFontFace : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     DWRITE_FONT_FACE_TYPE GetType(
         );
     HRESULT GetFiles(
@@ -890,7 +890,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteFontCollectionLoader", "CCA920E4-52F0-492B-BFA8-29C72EE0A468"));
 interface IDWriteFontCollectionLoader : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT CreateEnumeratorFromKey(
         IDWriteFactory factory,
         in void* collectionKey,
@@ -903,7 +903,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteFontFileEnumerator", "72755049-5FF7-435D-8348-4BE97CFA6C7C"));
 interface IDWriteFontFileEnumerator : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT MoveNext(
         /*out*/ BOOL* hasCurrentFile
         );
@@ -916,7 +916,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteLocalizedStrings", "08256209-099A-4B34-B86D-C22B110E7771"));
 interface IDWriteLocalizedStrings : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     uint GetCount(
         );
     HRESULT FindLocaleName(
@@ -948,7 +948,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteFontCollection", "A84CEE02-3EEA-4EEE-A827-87C1A02A0FCC"));
 interface IDWriteFontCollection : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     uint GetFontFamilyCount(
         );
     HRESULT GetFontFamily(
@@ -970,7 +970,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteFontList", "1A0D8438-1D97-4EC1-AEF9-A2FB86ED6ACB"));
 interface IDWriteFontList : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetFontCollection(
         /*out*/ IDWriteFontCollection* fontCollection
         );
@@ -986,7 +986,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteFontFamily", "DA20D8EF-812A-4C43-9802-62EC4ABD7ADD"));
 interface IDWriteFontFamily : IDWriteFontList
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetFamilyNames(
         /*out*/ IDWriteLocalizedStrings* names
         );
@@ -1008,7 +1008,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteFont", "ACD16696-8C14-4F5D-877E-FE3FC1D32737"));
 interface IDWriteFont : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetFontFamily(
         /*out*/ IDWriteFontFamily* fontFamily
         );
@@ -1046,7 +1046,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteTextFormat", "9C906818-31D7-4FD3-A151-7C5E225DB55A"));
 interface IDWriteTextFormat : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT SetTextAlignment(
         DWRITE_TEXT_ALIGNMENT textAlignment
         );
@@ -1124,7 +1124,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteTypography", "55F1112B-1DC2-4B3C-9541-F46894ED85B6"));
 interface IDWriteTypography : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT AddFontFeature(
         DWRITE_FONT_FEATURE fontFeature
         );
@@ -1140,14 +1140,14 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteNumberSubstitution", "14885CC9-BAB0-4f90-B6ED-5C366A2CD03D"));
 interface IDWriteNumberSubstitution : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
 }
 
 
 mixin(DX_DECLARE_IID("IDWriteTextAnalysisSource", "688E1A58-5094-47C8-ADC8-FBCEA60AE92B"));
 interface IDWriteTextAnalysisSource : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetTextAtPosition(
         uint textPosition,
         out WCHAR* textString,
@@ -1176,7 +1176,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteTextAnalysisSink", "5810CD44-0CA0-4701-B3FA-BEC5182AE4F6"));
 interface IDWriteTextAnalysisSink : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT SetScriptAnalysis(
         uint textPosition,
         uint textLength,
@@ -1204,7 +1204,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteTextAnalyzer", "B7E6163E-7F46-43B4-84B3-E4E6249C365D"));
 interface IDWriteTextAnalyzer : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT AnalyzeScript(
         IDWriteTextAnalysisSource analysisSource,
         uint textPosition,
@@ -1297,7 +1297,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteInlineObject", "8339FDE3-106F-47ab-8373-1C6295EB10B3"));
 interface IDWriteInlineObject : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT Draw(
         void* clientDrawingContext,
         IDWriteTextRenderer renderer,
@@ -1323,7 +1323,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWritePixelSnapping", "EAF3A2DA-ECF4-4D24-B644-B34F6842024B"));
 interface IDWritePixelSnapping : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT IsPixelSnappingDisabled(
         void* clientDrawingContext,
         /*out*/ BOOL* isDisabled
@@ -1342,7 +1342,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteTextRenderer", "EF8A8135-5CC6-45FE-8825-C5A0724EB819"));
 interface IDWriteTextRenderer : IDWritePixelSnapping
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT DrawGlyphRun(
         void* clientDrawingContext,
         float baselineOriginX,
@@ -1381,7 +1381,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteTextLayout", "53737037-6D14-410B-9BFE-0B182BB70961"));
 interface IDWriteTextLayout : IDWriteTextFormat
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT SetMaxWidth(
         float maxWidth
         );
@@ -1566,7 +1566,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteBitmapRenderTarget", "5E5A32A3-8DFF-4773-9FF6-0696EAB77267"));
 interface IDWriteBitmapRenderTarget : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT DrawGlyphRun(
         float baselineOriginX,
         float baselineOriginY,
@@ -1602,7 +1602,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteGdiInterop", "1EDD9491-9853-4299-898F-6432983B6F3A"));
 interface IDWriteGdiInterop : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT CreateFontFromLOGFONT(
         in LOGFONTW* logFont,
         /*out*/ IDWriteFont* font
@@ -1632,7 +1632,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteGlyphRunAnalysis", "7D97DBF7-E085-42D4-81E3-6A883BDED118"));
 interface IDWriteGlyphRunAnalysis : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetAlphaTextureBounds(
         DWRITE_TEXTURE_TYPE textureType,
         /*out*/ RECT* textureBounds
@@ -1655,7 +1655,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("IDWriteFactory", "B859EE5A-D838-4B5B-A2E8-1ADC7D93DB48"));
 interface IDWriteFactory : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetSystemFontCollection(
         /*out*/ IDWriteFontCollection* fontCollection,
         BOOL checkForUpdates = FALSE
@@ -1774,7 +1774,7 @@ extern(Windows):
 }
 
 
-extern(Windows)
+extern(Windows) nothrow @nogc
 {
 HRESULT DWriteCreateFactory(
     DWRITE_FACTORY_TYPE factoryType,

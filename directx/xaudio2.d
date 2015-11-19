@@ -522,7 +522,7 @@ version(DXSDK_11_0)
 mixin(DX_DECLARE_IID("IXAudio2", "8BCF1F58-9FE7-4583-8AC6-E2ADC465C8BB"));
 interface IXAudio2 : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetDeviceCount(
         /*out*/ uint* pCount
         );
@@ -600,7 +600,7 @@ alias AudioCategory AUDIO_STREAM_CATEGORY;
 mixin(DX_DECLARE_IID("IXAudio2", "60D8DAC8-5AA1-4E8E-B597-2F5E2883D484"));
 interface IXAudio2 : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT RegisterForCallbacks(
         IXAudio2EngineCallback pCallback
         );
@@ -654,7 +654,7 @@ extern(Windows):
 
 interface IXAudio2Voice : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetVoiceDetails(
         /*out*/ XAUDIO2_VOICE_DETAILS* pVoiceDetails
         );
@@ -738,7 +738,7 @@ extern(Windows):
 
 interface IXAudio2SourceVoice : IXAudio2Voice
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT Start(
         uint Flags = 0,
         uint OperationSet = XAUDIO2_COMMIT_NOW
@@ -790,13 +790,13 @@ else
 
 interface IXAudio2SubmixVoice : IXAudio2Voice
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
 }
 
 
 interface IXAudio2MasteringVoice : IXAudio2Voice
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
 version(DXSDK_11_1)
 {
 	HRESULT GetChannelMask(/*out*/ uint* ChannelMask);
@@ -806,7 +806,7 @@ version(DXSDK_11_1)
 
 interface IXAudio2EngineCallback : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void OnProcessingPassStart(
         );
     void OnProcessingPassEnd(
@@ -819,7 +819,7 @@ extern(Windows):
 
 interface IXAudio2VoiceCallback : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void OnVoiceProcessingPassStart(
         uint BytesRequired
         );

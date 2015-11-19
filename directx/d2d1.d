@@ -553,7 +553,7 @@ alias ulong D2D1_TAG;
 mixin(DX_DECLARE_IID("ID2D1Resource", "2CD90691-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1Resource : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetFactory( /*out*/ ID2D1Factory* factory );
 }
 
@@ -561,7 +561,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1Bitmap", "A2296057-EA42-4099-983B-539FB6505426"));
 interface ID2D1Bitmap : ID2D1Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     D2D1_SIZE_F GetSize(
         );
     D2D1_SIZE_U GetPixelSize(
@@ -593,7 +593,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1GradientStopCollection", "2CD906A7-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1GradientStopCollection  : ID2D1Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     uint GetGradientStopCount(
         );
     void GetGradientStops(
@@ -611,7 +611,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1Brush", "2CD906A8-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1Brush : ID2D1Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void SetOpacity(
         float opacity 
         );
@@ -629,7 +629,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1BitmapBrush", "2CD906AA-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1BitmapBrush : ID2D1Brush
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void SetExtendModeX(
         D2D1_EXTEND_MODE extendModeX 
         );
@@ -657,7 +657,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1SolidColorBrush", "2CD906A9-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1SolidColorBrush : ID2D1Brush
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void SetColor(
         in D2D1_COLOR_F* color 
         );
@@ -669,7 +669,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1LinearGradientBrush", "2CD906AB-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1LinearGradientBrush : ID2D1Brush
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void SetStartPoint(
         D2D1_POINT_2F startPoint 
         );
@@ -689,7 +689,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1RadialGradientBrush", "2CD906AC-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1RadialGradientBrush : ID2D1Brush
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void SetCenter(
         D2D1_POINT_2F center 
         );
@@ -719,7 +719,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1StrokeStyle", "2CD9069D-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1StrokeStyle : ID2D1Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     D2D1_CAP_STYLE GetStartCap(
         );
     D2D1_CAP_STYLE GetEndCap(
@@ -746,7 +746,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1Geometry", "2CD906A1-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1Geometry : ID2D1Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetBounds(
         in D2D1_MATRIX_3X2_F* worldTransform,
         /*out*/ D2D1_RECT_F* bounds 
@@ -831,7 +831,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1RectangleGeometry", "2CD906A2-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1RectangleGeometry : ID2D1Geometry
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetRect(
         /*out*/ D2D1_RECT_F* rect 
         );
@@ -841,7 +841,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1RoundedRectangleGeometry", "2CD906A3-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1RoundedRectangleGeometry : ID2D1Geometry
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetRoundedRect(
         /*out*/ D2D1_ROUNDED_RECT* roundedRect 
         );
@@ -851,7 +851,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1EllipseGeometry", "2CD906A4-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1EllipseGeometry : ID2D1Geometry
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetEllipse(
         /*out*/ D2D1_ELLIPSE* ellipse 
         );
@@ -861,7 +861,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1GeometryGroup", "2CD906A6-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1GeometryGroup : ID2D1Geometry
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     D2D1_FILL_MODE GetFillMode(
         );
     uint GetSourceGeometryCount(
@@ -876,7 +876,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1TransformedGeometry", "2CD906BB-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1TransformedGeometry : ID2D1Geometry
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetSourceGeometry(
         /*out*/ ID2D1Geometry* sourceGeometry 
         );
@@ -889,7 +889,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1SimplifiedGeometrySink", "2CD9069E-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1SimplifiedGeometrySink : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void SetFillMode(
         D2D1_FILL_MODE fillMode 
         );
@@ -920,7 +920,7 @@ alias ID2D1SimplifiedGeometrySink IDWriteGeometrySink;
 mixin(DX_DECLARE_IID("ID2D1GeometrySink", "2CD9069F-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1GeometrySink : ID2D1SimplifiedGeometrySink
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void AddLine(
         D2D1_POINT_2F point 
         );
@@ -943,7 +943,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1TessellationSink", "2CD906C1-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1TessellationSink : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void AddTriangles(
         in D2D1_TRIANGLE* triangles,
         uint trianglesCount 
@@ -956,7 +956,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1PathGeometry", "2CD906A5-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1PathGeometry : ID2D1Geometry
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT Open(
         /*out*/ ID2D1GeometrySink* geometrySink 
         );
@@ -975,7 +975,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1Mesh", "2CD906C2-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1Mesh : ID2D1Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT Open(
         /*out*/ ID2D1TessellationSink* tessellationSink 
         );
@@ -985,7 +985,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1Layer", "2CD9069B-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1Layer : ID2D1Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     D2D1_SIZE_F GetSize(
         );
 }
@@ -994,7 +994,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1DrawingStateBlock", "28506E39-EBF6-46A1-BB47-FD85565AB957"));
 interface ID2D1DrawingStateBlock : ID2D1Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDescription(
         /*out*/ D2D1_DRAWING_STATE_DESCRIPTION* stateDescription 
         );
@@ -1013,7 +1013,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1RenderTarget", "2CD90694-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1RenderTarget : ID2D1Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT CreateBitmap(
         D2D1_SIZE_U size,
         in void* srcData,
@@ -1249,7 +1249,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1BitmapRenderTarget", "2CD90695-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1BitmapRenderTarget : ID2D1RenderTarget
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetBitmap(
         /*out*/ ID2D1Bitmap* bitmap 
         );
@@ -1259,7 +1259,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1HwndRenderTarget", "2CD90698-12E2-11DC-9FED-001143A055F9"));
 interface ID2D1HwndRenderTarget : ID2D1RenderTarget
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     D2D1_WINDOW_STATE CheckWindowState(
         );
     HRESULT Resize(
@@ -1273,7 +1273,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1GdiInteropRenderTarget", "E0DB51C3-6F77-4BAE-B3D5-E47509B35838"));
 interface ID2D1GdiInteropRenderTarget : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetDC(
         D2D1_DC_INITIALIZE_MODE mode,
         /*out*/ HDC* hdc 
@@ -1287,7 +1287,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1DCRenderTarget", "1C51BC64-DE61-46FD-9899-63A5D8F03950"));
 interface ID2D1DCRenderTarget : ID2D1RenderTarget
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT BindDC(
         HDC hDC,
         in RECT* pSubRect 
@@ -1298,7 +1298,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID2D1Factory", "06152247-6F50-465A-9245-118BFD3B6007"));
 interface ID2D1Factory : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT ReloadSystemMetrics(
         );
     void GetDesktopDpi(
@@ -1364,7 +1364,7 @@ extern(Windows):
 }
 
 
-extern(Windows)
+extern(Windows) nothrow @nogc
 {
 HRESULT D2D1CreateFactory(
     D2D1_FACTORY_TYPE factoryType,

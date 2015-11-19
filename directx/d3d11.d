@@ -1860,7 +1860,7 @@ uint D3D11CalcSubresource( uint MipSlice, uint ArraySlice, uint MipLevels )
 mixin(DX_DECLARE_IID("ID3D11DeviceChild", "1841E5C8-16B0-489B-BCC8-44CFB0D5DEAE"));
 interface ID3D11DeviceChild : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDevice(
         /*out*/ ID3D11Device* ppDevice
         );
@@ -1884,7 +1884,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11DepthStencilState", "03823EFB-8D8F-4E1C-9AA2-F64BB2CBFDF1"));
 interface ID3D11DepthStencilState : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_DEPTH_STENCIL_DESC* pDesc
         );
@@ -1894,7 +1894,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11BlendState", "75B68FAA-347D-4159-8F45-A0640F01CD9A"));
 interface ID3D11BlendState : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_BLEND_DESC* pDesc
         );
@@ -1904,7 +1904,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11RasterizerState", "9BB4AB81-AB1A-4D8F-B506-FC04200B6EE7"));
 interface ID3D11RasterizerState : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_RASTERIZER_DESC* pDesc
         );
@@ -1914,7 +1914,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11Resource", "DC8E63F3-D12B-4952-B47B-5E45026A862D"));
 interface ID3D11Resource : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetType(
         /*out*/ D3D11_RESOURCE_DIMENSION* pResourceDimension
         );
@@ -1929,7 +1929,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11Buffer", "48570B85-D1EE-4FCD-A250-EB350722B037"));
 interface ID3D11Buffer : ID3D11Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_BUFFER_DESC* pDesc
         );
@@ -1939,7 +1939,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11Texture1D", "F8FB5C27-C6B3-4F75-A4C8-439AF2EF564C"));
 interface ID3D11Texture1D : ID3D11Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_TEXTURE1D_DESC* pDesc
         );
@@ -1949,7 +1949,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11Texture2D", "6F15AAF2-D208-4E89-9AB4-489535D34F9C"));
 interface ID3D11Texture2D : ID3D11Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_TEXTURE2D_DESC* pDesc
         );
@@ -1959,7 +1959,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11Texture3D", "037E866E-F56D-4357-A8AF-9DABBE6E250E"));
 interface ID3D11Texture3D : ID3D11Resource
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_TEXTURE3D_DESC* pDesc
         );
@@ -1969,7 +1969,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11View", "839D1216-BB2E-412B-B7F4-A9DBEBE08ED1"));
 interface ID3D11View : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetResource(
         /*out*/ ID3D11Resource* ppResource
         );
@@ -1979,7 +1979,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11ShaderResourceView", "B0E06FE0-8192-4E1A-B1CA-36D7414710B2"));
 interface ID3D11ShaderResourceView : ID3D11View
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc
         );
@@ -1989,7 +1989,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11RenderTargetView", "DFDBA067-0B8D-4865-875B-D7B4516CC164"));
 interface ID3D11RenderTargetView : ID3D11View
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_RENDER_TARGET_VIEW_DESC* pDesc
         );
@@ -1999,7 +1999,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11DepthStencilView", "9FDAC92A-1876-48C3-AFAD-25B94F84A9B6"));
 interface ID3D11DepthStencilView : ID3D11View
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc
         );
@@ -2009,7 +2009,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11UnorderedAccessView", "28ACF509-7F5C-48F6-8611-F316010A6380"));
 interface ID3D11UnorderedAccessView : ID3D11View
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc
         );
@@ -2019,56 +2019,56 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11VertexShader", "3B301D64-D678-4289-8897-22F8928B72F3"));
 interface ID3D11VertexShader : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
 }
 
 
 mixin(DX_DECLARE_IID("ID3D11HullShader", "8E5C6061-628A-4C8E-8264-BBE45CB3D5DD"));
 interface ID3D11HullShader : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
 }
 
 
 mixin(DX_DECLARE_IID("ID3D11DomainShader", "F582C508-0F36-490C-9977-31EECE268CFA"));
 interface ID3D11DomainShader : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
 }
 
 
 mixin(DX_DECLARE_IID("ID3D11GeometryShader", "38325B96-EFFB-4022-BA02-2E795B70275C"));
 interface ID3D11GeometryShader : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
 }
 
 
 mixin(DX_DECLARE_IID("ID3D11PixelShader", "EA82E40D-51DC-4F33-93D4-DB7C9125AE8C"));
 interface ID3D11PixelShader : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
 }
 
 
 mixin(DX_DECLARE_IID("ID3D11ComputeShader", "4F5B196E-C2BD-495E-BD01-1FDED38E4969"));
 interface ID3D11ComputeShader : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
 }
 
 
 mixin(DX_DECLARE_IID("ID3D11InputLayout", "E4819DDC-4CF0-4025-BD26-5DE82A3E07B7"));
 interface ID3D11InputLayout : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
 }
 
 
 mixin(DX_DECLARE_IID("ID3D11SamplerState", "DA6FEA51-564C-4487-9810-F0D0F9B4E3A5"));
 interface ID3D11SamplerState : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc( D3D11_SAMPLER_DESC* pDesc );
 }
 
@@ -2076,7 +2076,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11Asynchronous", "4B35D0CD-1E15-4258-9C98-1B1333F6DD3B"));
 interface ID3D11Asynchronous : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     uint GetDataSize();
 }
 
@@ -2084,7 +2084,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11Query", "D6C00747-87B7-425E-B84D-44D108560AFD"));
 interface ID3D11Query : ID3D11Asynchronous
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc( D3D11_QUERY_DESC* pDesc );
 }
 
@@ -2092,14 +2092,14 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11Predicate", "9EB576DD-9F77-4D86-81AA-8BAB5FE490E2"));
 interface ID3D11Predicate : ID3D11Query
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
 }
 
 
 mixin(DX_DECLARE_IID("ID3D11Counter", "6E8C49FB-A371-4770-B440-29086022B741"));
 interface ID3D11Counter : ID3D11Asynchronous
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetDesc(
         /*out*/ D3D11_COUNTER_DESC* pDesc
         );
@@ -2109,7 +2109,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11ClassInstance", "A6CD7FAA-B0B7-4A2F-9436-8662A65797CB"));
 interface ID3D11ClassInstance : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void GetClassLinkage(
         /*out*/ ID3D11ClassLinkage* ppLinkage
         );
@@ -2130,7 +2130,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11ClassLinkage", "DDF57CBA-9543-46E4-A12B-F207A0FE7FED"));
 interface ID3D11ClassLinkage : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT GetClassInstance(
         in char* pClassInstanceName,
         uint InstanceIndex,
@@ -2150,7 +2150,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11CommandList", "A24BC4D1-769E-43F7-8013-98FF566C18E2"));
 interface ID3D11CommandList : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     uint GetContextFlags(
         );
 }
@@ -2159,7 +2159,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11DeviceContext", "C0BFA96C-E089-44FB-8EAF-26F8796190DA"));
 interface ID3D11DeviceContext : ID3D11DeviceChild
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     void VSSetConstantBuffers(
         uint StartSlot,
         uint NumBuffers,
@@ -2679,7 +2679,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11Device", "DB6F6DDB-AC77-4E88-8253-819DF9BBF140"));
 interface ID3D11Device : std.c.windows.com.IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT CreateBuffer(
         in D3D11_BUFFER_DESC* pDesc,
         in D3D11_SUBRESOURCE_DATA* pInitialData,
@@ -2876,7 +2876,7 @@ extern(Windows):
 mixin(DX_DECLARE_IID("ID3D11Debug", "79CF2233-7536-4948-9D36-1E4692DC5760"));
 interface ID3D11Debug : IUnknown
 {
-extern(Windows):
+extern(Windows) nothrow @nogc:
     HRESULT SetFeatureMask( 
         uint Mask
         );
@@ -2912,7 +2912,7 @@ extern(Windows):
         );
 };
 
-extern(Windows)
+extern(Windows) nothrow @nogc
 {
 HRESULT D3D11CreateDevice(
     IDXGIAdapter pAdapter,
