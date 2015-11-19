@@ -9,7 +9,7 @@ import core.sys.windows.winuser;
 
 import std.ascii;
 
-nothrow @nogc:
+nothrow @nogc __gshared:
 
 template TEXT(string s)
 {
@@ -82,4 +82,39 @@ void showMessage(in char[] msg)
 T[] newArr(T)(size_t size)
 {
 	return (cast(T*)malloc(size * T.sizeof))[0..size];
+}
+
+extern(C) ubyte _fltused;
+
+// ********************************************************************************
+
+struct Void {}
+
+template NotVoid(T)
+{
+	static if (is(T == void))
+		alias NotVoid = Void;
+	else
+		alias NotVoid = T;
+}
+
+template notVoid(T)
+{
+	alias R = NotVoid!T;
+
+	R notVoid(lazy T value)
+	{
+		static R helper(lazy T value)
+		{
+			static if (is(typeof(value()) == void))
+			{
+				value();
+				return Void();
+			}
+			else
+				return value;
+		}
+
+		return (cast(R function(lazy T) nothrow)(&helper))(value);
+	}
 }

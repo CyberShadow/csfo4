@@ -1,11 +1,15 @@
 module csfo4.dll.upscale;
 
+import std.traits;
+
 import core.stdc.stdio;
 import core.sys.windows.windows;
 import core.sys.windows.winsock2;
 
 import csfo4.common.common;
 import csfo4.common.hook;
+import csfo4.directx.d3d11;
+import csfo4.directx.dxgi;
 
 nothrow @nogc __gshared:
 
@@ -29,29 +33,22 @@ BOOL DllEntryPoint(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved) nothr
 
 FunctionHook!(CreateWindowExA, CreateWindowExAMy) hkCreateWindowExA = void;
 FunctionHook!(GetWindowRect, GetWindowRectMy) hkGetWindowRect = void;
-FunctionHook!(PeekMessageA, PeekMessageAMy) hkPeekMessageA = void;
-
-struct Fraction
-{
-	int dividend, divisor;
-	int opMul(int x) @nogc nothrow { return x * dividend / divisor; }
-}
-enum fCW  = Fraction(2, 1);
-enum fGWR = Fraction(1, 2);
-enum fSWP = Fraction(1, 1);
+FunctionHook!(D3D11CreateDeviceAndSwapChain, D3D11CreateDeviceAndSwapChainMy) hkD3D11CreateDeviceAndSwapChain = void;
+MethodHook!(ID3D11DeviceContext.RSSetViewports, RSSetViewportsMy) hkRSSetViewPorts;
 
 void initialize()
 {
-	//MessageBoxA(null, "Hello from DLL\n", "mapfix", 0);
-	hkCreateWindowExA.initialize("user32.dll", "CreateWindowExA");
-	hkGetWindowRect  .initialize("user32.dll", "GetWindowRect");
-//	hkPeekMessageA   .initialize("user32.dll", "PeekMessageA");
+	hkCreateWindowExA              .initialize("user32.dll", "CreateWindowExA");
+	hkGetWindowRect                .initialize("user32.dll", "GetWindowRect");
+	hkD3D11CreateDeviceAndSwapChain.initialize("d3d11.dll", "D3D11CreateDeviceAndSwapChain");
 }
 
 void shutdown()
 {
-//	hkCreateWindowExA.finalize();
-//	hkGetWindowRect  .finalize();
+	hkCreateWindowExA              .finalize();
+	hkGetWindowRect                .finalize();
+	hkD3D11CreateDeviceAndSwapChain.finalize();
+	hkRSSetViewPorts               .finalize();
 }
 
 HWND hWnd;
@@ -60,28 +57,8 @@ extern(Windows)
 HWND CreateWindowExAMy(DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle,
 	int x, int y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam)
 {
-	hWnd = hkCreateWindowExA.callNext(dwExStyle, lpClassName, lpWindowName, dwStyle,
-		x, y, nWidth * fCW, nHeight * fCW, hWndParent, hMenu, hInstance, lpParam);
-
-	static extern(Windows) DWORD ThreadProc(LPVOID lpParameter)
-	{
-		Sleep(999);
-		RECT rect;
-		hkGetWindowRect.callNext(hWnd, &rect);
-		SetWindowPos(hWnd, null,
-			rect.left,
-			rect.top,
-			(rect.right  - rect.left) * fSWP,
-			(rect.bottom - rect.top ) * fSWP,
-			SWP_NOSENDCHANGING | SWP_DEFERERASE | SWP_DEFERERASE | SWP_NOCOPYBITS | SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOREDRAW | SWP_NOZORDER,
-		);
-		return 0;
-	}
-
-	DWORD dwThreadID;
-	CreateThread(null, 0, &ThreadProc, null, 0, &dwThreadID);
-
-	return hWnd;
+	return hkCreateWindowExA.callNext(dwExStyle, lpClassName, lpWindowName, dwStyle,
+		x, y, nWidth * 2, nHeight * 2, hWndParent, hMenu, hInstance, lpParam);
 }
 
 extern(Windows)
@@ -90,18 +67,50 @@ BOOL GetWindowRectMy(HWND hWnd, LPRECT lpRect)
 	auto bResult = hkGetWindowRect.callNext(hWnd, lpRect);
 	if (bResult)
 	{
-		lpRect.right  = lpRect.left + (lpRect.right  - lpRect.left) * fGWR;
-		lpRect.bottom = lpRect.top  + (lpRect.bottom - lpRect.top ) * fGWR;
+		lpRect.right  = lpRect.left + (lpRect.right  - lpRect.left) / 2;
+		lpRect.bottom = lpRect.top  + (lpRect.bottom - lpRect.top ) / 2;
 	}
 	return bResult;
 }
 
 extern(Windows)
-BOOL PeekMessageAMy(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg)
+HRESULT D3D11CreateDeviceAndSwapChainMy(
+    IDXGIAdapter pAdapter,
+    D3D11_DRIVER_TYPE DriverType,
+    HMODULE Software,
+    uint Flags,
+    in D3D11_FEATURE_LEVEL* pFeatureLevels,
+    uint FeatureLevels,
+    uint SDKVersion,
+    in DXGI_SWAP_CHAIN_DESC* pSwapChainDesc,
+    /*out*/ IDXGISwapChain* ppSwapChain,
+    /*out*/ ID3D11Device* ppDevice,
+    D3D11_FEATURE_LEVEL* pFeatureLevel,
+    ID3D11DeviceContext* ppImmediateContext,
+)
 {
-	again:
-	auto bResult = hkPeekMessageA.callNext(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
-	if (bResult && lpMsg.message == WM_SIZE)
-		goto again;
-	return bResult;
+	auto result = hkD3D11CreateDeviceAndSwapChain.callNext(
+		pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion,
+		pSwapChainDesc, ppSwapChain, ppDevice, pFeatureLevel, ppImmediateContext);
+	if (ppImmediateContext && *ppImmediateContext)
+	{
+		auto intf = *ppImmediateContext;
+		hkRSSetViewPorts.initialize(intf);
+	}
+	return result;
+}
+
+extern(Windows)
+void RSSetViewportsMy(ID3D11DeviceContext self, UINT NumViewports, const D3D11_VIEWPORT *pViewports)
+{
+	auto viewports = (cast(D3D11_VIEWPORT*)pViewports)[0..NumViewports];
+
+	foreach (ref viewport; viewports)
+		if (viewport.Width == 3840 && viewport.Height == 2160)
+		{
+			viewport.Width = 1920;
+			viewport.Height = 1080;
+		}
+
+	hkRSSetViewPorts.callNext(self, NumViewports, pViewports);
 }

@@ -147,37 +147,6 @@ template logMethod(I, alias fun)
 	}
 }
 
-struct Void {}
-
-template NotVoid(T)
-{
-	static if (is(T == void))
-		alias NotVoid = Void;
-	else
-		alias NotVoid = T;
-}
-
-template voidConvert(T)
-{
-	alias R = NotVoid!T;
-
-	R voidConvert(lazy T value)
-	{
-		static R helper(lazy T value)
-		{
-			static if (is(typeof(value()) == void))
-			{
-				value();
-				return Void();
-			}
-			else
-				return value;
-		}
-
-		return (cast(R function(lazy T) nothrow)(&helper))(value);
-	}
-}
-
 void hookMethod(I, string methodName)(ref void* ptr)
 {
 	alias method = Identity!(__traits(getMember, I, methodName));
@@ -209,7 +178,7 @@ void hookMethod(I, string methodName)(ref void* ptr)
 				}
 		}
 
-		auto result = voidConvert(origFun(self, args));
+		auto result = notVoid(origFun(self, args));
 
 		version (none)
 		static if (is(I : ID3D11Texture2D) && methodName == "GetDesc")
@@ -433,5 +402,3 @@ void loadTarget()
 	wcscat(path.ptr, `\d3d11.dll`);
 	hmTarget = LoadLibraryW(path.ptr);
 }
-
-extern(C) ubyte _fltused;

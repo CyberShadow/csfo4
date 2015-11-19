@@ -11,6 +11,36 @@ nothrow @nogc:
 
 enum trampolineLength = size_t.sizeof==8 ? 12 : 5;
 
+void makeWritable(void[] mem)
+{
+	/*MEMORY_BASIC_INFORMATION mbi;
+	VirtualQuery(mem.ptr, &mbi, mbi.sizeof).wenforce("VirtualQuery");
+
+	DWORD newProtect;
+	switch (mbi.Protect & 0x80)
+	{
+		case PAGE_EXECUTE:
+		case PAGE_EXECUTE_READ:
+			newProtect = PAGE_EXECUTE_WRITECOPY;
+			break;
+		case PAGE_NOACCESS:
+		case PAGE_READONLY:
+			newProtect = PAGE_READWRITE;
+			break;
+		case PAGE_EXECUTE_READWRITE:
+		case PAGE_EXECUTE_WRITECOPY:
+		case PAGE_READWRITE:
+		case PAGE_WRITECOPY:
+			return;
+		default:
+			error("Unknown protection");
+	}*/
+	DWORD newProtect = PAGE_EXECUTE_READWRITE;
+
+	DWORD oldProtect;
+	VirtualProtect(mem.ptr, mem.length, newProtect, &oldProtect).wenforce("VirtualProtect");
+}
+
 struct Hook
 {
 nothrow @nogc:
@@ -29,8 +59,7 @@ nothrow @nogc:
 
 	void unprotect()
 	{
-		DWORD old;
-		VirtualProtect(target, trampolineLength, PAGE_EXECUTE_WRITECOPY, &old).wenforce("VirtualProtect");
+		makeWritable(target[0..trampolineLength]);
 	}
 
 	void hook()
@@ -83,5 +112,51 @@ struct FunctionHook(alias original, alias callback)
 		ReturnType!original result = origPtr(args);
 		hook.hook();
 		return result;
+	}
+}
+
+struct MethodHook(alias original, alias callback)
+{
+	enum methodName = Identity!(__traits(identifier, original));
+
+	alias I = Identity!(__traits(parent, original));
+	alias Fun = extern(Windows) ReturnType!original function(I, Parameters!original) nothrow @nogc;
+
+	static assert(is(Fun == typeof(&callback)),
+		"Mismatching hook function types.\nOriginal:\n\t" ~ Fun.stringof ~ "\nCallback:\n\t" ~ typeof(&callback).stringof);
+
+	Fun* funPtr;
+	Fun origPtr;
+
+	enum int index = {
+		int i;
+	    static if (is(I S == super) && S.length)
+			i += __traits(allMembers, S).length;
+		foreach (member; __traits(derivedMembers, I))
+			if (member == methodName)
+				return i;
+			else
+				i++;
+		assert(false, "Method not found");
+	}();
+
+	void initialize(I intf)
+	{
+		funPtr = &(cast(Fun**)intf)[0][index];
+		origPtr = *funPtr;
+
+		makeWritable((cast(void*)funPtr)[0..(void*).sizeof]);
+		*funPtr = &callback;
+	}
+
+	void finalize()
+	{
+		if (funPtr && origPtr)
+			*funPtr = origPtr;
+	}
+
+	ReturnType!original callNext(I self, Parameters!original args)
+	{
+		return origPtr(self, args);
 	}
 }
