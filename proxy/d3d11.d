@@ -27,14 +27,14 @@ BOOL DllEntryPoint(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved) nothr
 void initialize()
 {
 	WIN32_FIND_DATAW wfd = void;
-	HANDLE hDir = FindFirstFileW(`Plugins\*.*`, &wfd);
+	HANDLE hDir = FindFirstFileW(`NativeMods\*.*`, &wfd);
 	if (hDir != INVALID_HANDLE_VALUE)
 		do
 		{
 			if (wfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && wfd.cFileName[0] != '.')
 			{
 				wchar[MAX_PATH] path = void;
-				wcscpy(path.ptr, `Plugins\`);
+				wcscpy(path.ptr, `NativeMods\`);
 				wcscat(path.ptr, wfd.cFileName.ptr);
 				wcscat(path.ptr, `\`);
 				wcscat(path.ptr, wfd.cFileName.ptr);
