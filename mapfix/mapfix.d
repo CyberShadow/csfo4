@@ -64,10 +64,10 @@ int sendMy(SOCKET s, const(void)* buf, int len, int flags)
 {
 	debug(dump)
 	{
-	    CreateDirectoryA(`C:\Temp\Fallout4\MyMods\mapfix\packets`, null);
+	    CreateDirectoryA(`C:\Temp\Fallout4\MyMods\csfo4\mapfix\packets`, null);
 	    char[1024] fn;
 	    static __gshared int index;
-	    sprintf(fn.ptr, `C:\Temp\Fallout4\MyMods\mapfix\packets\packet-%08d.bin`.ptr, index++);
+	    sprintf(fn.ptr, `C:\Temp\Fallout4\MyMods\csfo4\mapfix\packets\packet-%08d.bin`.ptr, index++);
 	    FILE* f = fopen(fn.ptr, "wb");
 	    fwrite(buf, 1, len, f);
 	    fclose(f);
