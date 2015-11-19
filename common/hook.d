@@ -59,7 +59,8 @@ nothrow @nogc:
 
 struct FunctionHook(alias original, alias callback)
 {
-	static assert(is(typeof(&original) == typeof(&callback)));
+	static assert(is(typeof(&original) == typeof(&callback)),
+		"Mismatching hook function types.\nOriginal:\n\t" ~ typeof(&original).stringof ~ "\nCallback:\n\t" ~ typeof(&callback).stringof);
 	alias Fun = typeof(&original);
 
 	Hook hook;
