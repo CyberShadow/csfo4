@@ -1,4 +1,4 @@
-module csfo4.proxy.dxgi;
+module csfo4.proxy.d3d11;
 
 import core.stdc.wchar_;
 import core.sys.windows.basetyps;
@@ -6,8 +6,11 @@ import core.sys.windows.winbase;
 import core.sys.windows.windef;
 import core.sys.windows.winuser;
 
+import std.traits;
+
 import csfo4.common.common;
 import csfo4.common.hook;
+import csfo4.directx.d3d11;
 
 nothrow @nogc __gshared:
 
@@ -65,13 +68,12 @@ mixin template proxyFunc(string name, Return, Args...)
 	}
 }
 
-mixin proxyFunc!("CreateDXGIFactory" , HRESULT, REFIID, void **);
-mixin proxyFunc!("CreateDXGIFactory1", HRESULT, REFIID, void **);
+mixin proxyFunc!("D3D11CreateDeviceAndSwapChain" , HRESULT, Parameters!D3D11CreateDeviceAndSwapChain);
 
 void loadTarget()
 {
 	wchar[MAX_PATH] path = void;
 	GetSystemDirectoryW(path.ptr, MAX_PATH);
-	wcscat(path.ptr, `\dxgi.dll`);
+	wcscat(path.ptr, `\d3d11.dll`);
 	hmTarget = LoadLibraryW(path.ptr);
 }
