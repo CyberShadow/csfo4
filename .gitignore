@@ -3,3 +3,6 @@
 *.dll
 *.bin
 *.lib
+*.exp
+
+*.log
