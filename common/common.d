@@ -75,7 +75,7 @@ void showMessage(in char[] msg)
 	{
 		char[1024] buf;
 		sprintf(buf.ptr, "%.*s\n", msg.length, msg.ptr);
-		MessageBoxA(null, buf.ptr, "mapfix", 0);
+		MessageBoxA(null, buf.ptr, "csfo4", 0);
 	}
 }
 
