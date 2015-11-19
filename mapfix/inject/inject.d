@@ -1,4 +1,4 @@
-module csfo4.inject.inject;
+module csfo4.mapfix.inject.inject;
 
 import core.stdc.stdio;
 import core.stdc.string;
