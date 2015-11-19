@@ -1,11 +1,11 @@
-module mapfix.common.hook;
+module csfo4.common.hook;
 
 import std.traits;
 
 import core.sys.windows.winbase;
 import core.sys.windows.windef;
 
-import mapfix.common.common;
+import csfo4.common.common;
 
 nothrow @nogc:
 

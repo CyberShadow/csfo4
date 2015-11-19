@@ -1,4 +1,4 @@
-module mapfix.common.process;
+module csfo4.common.process;
 
 import core.sys.windows.tlhelp32;
 import core.sys.windows.winbase;
@@ -6,7 +6,7 @@ import core.sys.windows.windef;
 
 debug import core.stdc.stdio;
 
-import mapfix.common.common;
+import csfo4.common.common;
 
 nothrow @nogc:
 

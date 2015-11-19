@@ -1,4 +1,4 @@
-module mapfix.proxy.dxgi;
+module csfo4.proxy.dxgi;
 
 import core.stdc.wchar_;
 import core.sys.windows.basetyps;
@@ -6,8 +6,8 @@ import core.sys.windows.winbase;
 import core.sys.windows.windef;
 import core.sys.windows.winuser;
 
-import mapfix.common.common;
-import mapfix.common.hook;
+import csfo4.common.common;
+import csfo4.common.hook;
 
 nothrow @nogc __gshared:
 

@@ -1,11 +1,11 @@
-module mapfix.dll.mapfix;
+module csfo4.dll.mapfix;
 
 import core.stdc.stdio;
 import core.sys.windows.windows;
 import core.sys.windows.winsock2;
 
-import mapfix.common.common;
-import mapfix.common.hook;
+import csfo4.common.common;
+import csfo4.common.hook;
 
 nothrow @nogc __gshared:
 

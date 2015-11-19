@@ -1,10 +1,10 @@
 // D Bindings for DirectX
 // Ported by Sean Cavanaugh - WorksOnMyMachine@gmail.com
 
-module mapfix.directx.dxpublic;
+module csfo4.directx.dxpublic;
 
 
-import mapfix.directx.dxinternal;
+import csfo4.directx.dxinternal;
 
 
 /////////////////////////

@@ -1,13 +1,13 @@
 // D Bindings for DirectX
 // Ported by Sean Cavanaugh - WorksOnMyMachine@gmail.com
 
-module mapfix.directx.d3dcompiler;
+module csfo4.directx.d3dcompiler;
 
 
-import mapfix.directx.dxinternal;
-public import mapfix.directx.dxpublic;
-import mapfix.directx.dxgi;
-import mapfix.directx.d3d11shader;
+import csfo4.directx.dxinternal;
+public import csfo4.directx.dxpublic;
+import csfo4.directx.dxgi;
+import csfo4.directx.d3d11shader;
 import core.sys.windows.windows;
 import std.c.windows.com;
 

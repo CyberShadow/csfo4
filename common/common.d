@@ -1,4 +1,4 @@
-module mapfix.common.common;
+module csfo4.common.common;
 
 import core.stdc.stdio;
 import core.stdc.stdlib;

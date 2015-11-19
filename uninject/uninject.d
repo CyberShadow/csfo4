@@ -1,12 +1,12 @@
-module mapfix.uninject.uninject;
+module csfo4.uninject.uninject;
 
 import core.stdc.stdio;
 import core.stdc.string;
 import core.sys.windows.tlhelp32;
 import core.sys.windows.windows;
 
-import mapfix.common.common;
-import mapfix.common.process;
+import csfo4.common.common;
+import csfo4.common.process;
 
 nothrow @nogc:
 

@@ -1,13 +1,13 @@
 // D Bindings for Direct2D1
 // Ported by Sean Cavanaugh - WorksOnMyMachine@gmail.com
 
-module mapfix.directx.d2d1;
+module csfo4.directx.d2d1;
 
 
-import mapfix.directx.dxinternal;
-public import mapfix.directx.dxpublic;
-import mapfix.directx.dxgi;
-import mapfix.directx.dwrite;
+import csfo4.directx.dxinternal;
+public import csfo4.directx.dxpublic;
+import csfo4.directx.dxgi;
+import csfo4.directx.dwrite;
 import std.c.windows.com;
 import core.sys.windows.windows;
 
