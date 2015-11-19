@@ -2,6 +2,7 @@ module mapfix.common.common;
 
 import core.stdc.stdio;
 import core.stdc.stdlib;
+import core.stdc.string;
 import core.sys.windows.winbase;
 import core.sys.windows.winnt;
 import core.sys.windows.winuser;
@@ -32,8 +33,21 @@ T wenforce(T)(T value, string what)
 {
 	if (!value)
 	{
-		//printf("%.*s failed!\n", what.length, what.ptr);
-		error(what);
+		char* lpMsgBuf = null;
+		FormatMessageA(
+			FORMAT_MESSAGE_ALLOCATE_BUFFER |
+			FORMAT_MESSAGE_FROM_SYSTEM |
+			FORMAT_MESSAGE_IGNORE_INSERTS,
+			null,
+			GetLastError(),
+			0,
+			cast(LPSTR)&lpMsgBuf,
+			0,
+			null);
+
+		char[1024] msg = void;
+		sprintf(msg.ptr, "%.*s failed: %s\n", what.length, what.ptr, lpMsgBuf);
+		error(msg.ptr[0..strlen(msg.ptr)]);
 		ExitProcess(1);
 	}
 	return value;
@@ -46,13 +60,14 @@ T enforce(T)(T value, string msg)
 	return value;
 }
 
-void error(string msg)
+void error(in char[] msg)
 {
 	showMessage(msg);
-	ExitProcess(1);
+	//ExitProcess(1);
+	TerminateProcess(GetCurrentProcess(), 1);
 }
 
-void showMessage(string msg)
+void showMessage(in char[] msg)
 {
 	version (console)
 		printf("%.*s\n", msg.length, msg.ptr);
