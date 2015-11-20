@@ -4,5 +4,7 @@
 *.bin
 *.lib
 *.exp
+*.ilk
+*.pdb
 
 *.log
