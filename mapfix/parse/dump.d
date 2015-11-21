@@ -13,7 +13,7 @@ void main(string[] args)
 {
 	string[] targets = args[1..$];
 	if (!targets.length)
-		targets = [`..\packets-blank\`];
+		targets = [`..\packets\`];
 	foreach (target; targets)
 	{
 		string dir, mask;
