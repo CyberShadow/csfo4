@@ -31,7 +31,8 @@ void initialize()
 	if (hDir != INVALID_HANDLE_VALUE)
 		do
 		{
-			if (wfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && wfd.cFileName[0] != '.')
+			if ((wfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+			  && wfd.cFileName[0] != '.')
 			{
 				wchar[MAX_PATH] path = void;
 				wcscpy(path.ptr, `NativeMods\`);
