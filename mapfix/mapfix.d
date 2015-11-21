@@ -147,7 +147,7 @@ int sendMy(SOCKET s, const(void)* buf, int len, int flags)
 					{
 						int nx = ox - pdx;
 						int ny = oy - pdy;
-						if (nx >= 0 && nx < header.width && oy >= 0 && oy < header.height)
+						if (nx >= 0 && nx < header.width && ny >= 0 && ny < header.height)
 							pixels[ny*header.width+nx] = goodPixels[oy*header.width+ox];
 					}
 
