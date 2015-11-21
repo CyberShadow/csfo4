@@ -36,8 +36,12 @@ FunctionHook!(GetWindowRect, GetWindowRectMy) hkGetWindowRect = void;
 FunctionHook!(D3D11CreateDeviceAndSwapChain, D3D11CreateDeviceAndSwapChainMy) hkD3D11CreateDeviceAndSwapChain = void;
 MethodHook!(ID3D11DeviceContext.RSSetViewports, RSSetViewportsMy) hkRSSetViewPorts;
 
+debug(log) FILE* log;
+
 void initialize()
 {
+	debug(log) { log = fopen(`C:\Temp\Fallout4\MyMods\csfo4\upscale\upscale.log`, "wb"); setvbuf(log, null, _IONBF, 0); }
+
 	hkCreateWindowExA              .initialize("user32.dll", "CreateWindowExA");
 	hkGetWindowRect                .initialize("user32.dll", "GetWindowRect");
 	hkD3D11CreateDeviceAndSwapChain.initialize("d3d11.dll", "D3D11CreateDeviceAndSwapChain");
@@ -49,9 +53,10 @@ void shutdown()
 	hkGetWindowRect                .finalize();
 	hkD3D11CreateDeviceAndSwapChain.finalize();
 	hkRSSetViewPorts               .finalize();
+
+	debug(log) fclose(log);
 }
 
-HWND hWnd;
 DWORD renderW, renderH, screenW, screenH;
 
 extern(Windows)
@@ -63,14 +68,17 @@ HWND CreateWindowExAMy(DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName,
 	renderW = nWidth;
 	renderH = nHeight;
 
-	return hkCreateWindowExA.callNext(dwExStyle, lpClassName, lpWindowName, dwStyle,
+	auto hWnd = hkCreateWindowExA.callNext(dwExStyle, lpClassName, lpWindowName, dwStyle,
 		x, y, screenW, screenH, hWndParent, hMenu, hInstance, lpParam);
+	debug(log) fprintf(log, "CreateWindowExA(%d, %d, %d, %d) => %p\n", x, y, nWidth, nHeight, hWnd);
+	return hWnd;
 }
 
 extern(Windows)
 BOOL GetWindowRectMy(HWND hWnd, LPRECT lpRect)
 {
 	auto bResult = hkGetWindowRect.callNext(hWnd, lpRect);
+	debug(log) fprintf(log, "GetWindowRect(%p) => (%d, %d, %d, %d)\n", hWnd, lpRect.tupleof);
 	if (bResult)
 	{
 		lpRect.right  = lpRect.left + (lpRect.right  - lpRect.left) * renderW / screenW;
