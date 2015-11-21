@@ -41,7 +41,11 @@ void initialize()
 				wcscat(path.ptr, wfd.cFileName.ptr);
 				wcscat(path.ptr, `.dll`);
 				//MessageBoxW(null, path.ptr, "proxy", 0);
-				LoadLibraryW(path.ptr);
+				HMODULE hmDLL = LoadLibraryW(path.ptr);
+				if (hmDLL)
+				{
+					D3D11CreateDeviceAndSwapChainProxy.addChainLoad(hmDLL);
+				}
 			}
 		}
 		while (FindNextFileW(hDir, &wfd));
@@ -68,9 +72,16 @@ mixin template proxyFunc(string name, Return, Args...)
 		}
 		return ProxyFunc_p(args);
 	}
+
+	void addChainLoad(HMODULE hmNext)
+	{
+		auto ProxyFunc_c = cast(ProxyFunc_t)GetProcAddress(hmNext, name);
+		if (ProxyFunc_c)
+			ProxyFunc_p = ProxyFunc_c;
+	}
 }
 
-mixin proxyFunc!("D3D11CreateDeviceAndSwapChain" , HRESULT, Parameters!D3D11CreateDeviceAndSwapChain);
+mixin proxyFunc!("D3D11CreateDeviceAndSwapChain" , HRESULT, Parameters!D3D11CreateDeviceAndSwapChain) D3D11CreateDeviceAndSwapChainProxy;
 
 void loadTarget()
 {
