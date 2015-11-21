@@ -52,13 +52,19 @@ void shutdown()
 }
 
 HWND hWnd;
+DWORD renderW, renderH, screenW, screenH;
 
 extern(Windows)
 HWND CreateWindowExAMy(DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle,
 	int x, int y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam)
 {
+	screenW = GetSystemMetrics(SM_CXSCREEN);
+	screenH = GetSystemMetrics(SM_CYSCREEN);
+	renderW = nWidth;
+	renderH = nHeight;
+
 	return hkCreateWindowExA.callNext(dwExStyle, lpClassName, lpWindowName, dwStyle,
-		x, y, nWidth * 2, nHeight * 2, hWndParent, hMenu, hInstance, lpParam);
+		x, y, screenW, screenH, hWndParent, hMenu, hInstance, lpParam);
 }
 
 extern(Windows)
@@ -67,8 +73,8 @@ BOOL GetWindowRectMy(HWND hWnd, LPRECT lpRect)
 	auto bResult = hkGetWindowRect.callNext(hWnd, lpRect);
 	if (bResult)
 	{
-		lpRect.right  = lpRect.left + (lpRect.right  - lpRect.left) / 2;
-		lpRect.bottom = lpRect.top  + (lpRect.bottom - lpRect.top ) / 2;
+		lpRect.right  = lpRect.left + (lpRect.right  - lpRect.left) * renderW / screenW;
+		lpRect.bottom = lpRect.top  + (lpRect.bottom - lpRect.top ) * renderH / screenH;
 	}
 	return bResult;
 }
@@ -106,10 +112,10 @@ void RSSetViewportsMy(ID3D11DeviceContext self, UINT NumViewports, const D3D11_V
 	auto viewports = (cast(D3D11_VIEWPORT*)pViewports)[0..NumViewports];
 
 	foreach (ref viewport; viewports)
-		if (viewport.Width == 3840 && viewport.Height == 2160)
+		if (viewport.Width == screenW && viewport.Height == screenH)
 		{
-			viewport.Width = 1920;
-			viewport.Height = 1080;
+			viewport.Width = renderW;
+			viewport.Height = renderH;
 		}
 
 	hkRSSetViewPorts.callNext(self, NumViewports, pViewports);
