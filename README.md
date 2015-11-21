@@ -1,7 +1,21 @@
-Fallout 4 Pip-Boy App Local Map Fix
-===================================
+Fallout 4 Mods
+==============
 
-http://www.nexusmods.com/fallout4/mods/644
+Mods:
+
+ * [DLL loader](http://www.nexusmods.com/fallout4/mods/1844)
+ * [Pip-Boy App Local Map Fix](http://www.nexusmods.com/fallout4/mods/644)
+ * [Upscale](http://www.nexusmods.com/fallout4/mods/1850)
+
+Directory layout:
+
+ * `common`: Common code
+ * `directx`: DirectX
+ * `dxlog`: DirectX COM instrumenter/logger
+ * `mapfix`: MapFix mod code
+ * `proxy`: DLL loader
+ * `testhost`: Test injection host
+ * `upscale`: Upscale mod code
 
 Building
 --------
