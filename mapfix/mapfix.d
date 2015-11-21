@@ -34,11 +34,14 @@ void initialize()
 {
 	//MessageBoxA(null, "Hello from DLL\n", "mapfix", 0);
 	hkSend.initialize("ws2_32.dll", "send");
+
+	debug(log) { log = fopen(`C:\Temp\Fallout4\MyMods\csfo4\mapfix\mapfix.log`, "wb"); setvbuf(log, null, _IONBF, 0); }
 }
 
 void shutdown()
 {
 	hkSend.finalize();
+	debug(log) fclose(log);
 }
 
 align(1)
@@ -68,9 +71,13 @@ Header lastHeader = void;
 MapHeader goodMapHeader;
 ubyte[] goodPixels = null;
 
+debug(log) FILE* log;
+
 extern(Windows)
 int sendMy(SOCKET s, const(void)* buf, int len, int flags)
 {
+	debug(log) fprintf(log, "sendMy enter\n");
+
 	debug(dump)
 	{
 	    CreateDirectoryA(`C:\Temp\Fallout4\MyMods\csfo4\mapfix\packets`, null);
@@ -120,6 +127,8 @@ int sendMy(SOCKET s, const(void)* buf, int len, int flags)
 			if (GetTickCount() % 10)
 				isBlank = true;
 
+			debug(log) fprintf(log, "isBlank = %s\n", isBlank ? "TRUE".ptr : "false".ptr);
+
 			if (isBlank && goodPixels.length && goodPixels.length == header.width * header.height)
 			{
 				// Although the coordinates permit the map to represent any parallelogram,
@@ -129,14 +138,17 @@ int sendMy(SOCKET s, const(void)* buf, int len, int flags)
 				// Map units per pixel
 				auto sx = (header.topRight.x - header.topLeft.x) / header.width;
 				auto sy = (header.bottomLeft.y - header.topLeft.y) / header.height;
+				debug(log) fprintf(log, "s=(%f, %f)\n", sx, sy);
 
 				// Delta (in map units)
 				auto mdx = header.topLeft.x - goodMapHeader.topLeft.x;
 				auto mdy = header.topLeft.y - goodMapHeader.topLeft.y;
+				debug(log) fprintf(log, "md=(%f, %f)\n", mdx, mdy);
 
 				// Delta (in pixels)
 				auto pdx = sx ? cast(int)(mdx / sx) : 0;
 				auto pdy = sy ? cast(int)(mdy / sy) : 0;
+				debug(log) fprintf(log, "pd=(%f, %f)\n", pdx, pdy);
 
 				debug(fill)
 				foreach (i, ref p; pixels)
@@ -182,5 +194,11 @@ int sendMy(SOCKET s, const(void)* buf, int len, int flags)
 		}
 	}
 
-	return hkSend.callNext(s, buf, len, flags);
+	debug(log) fprintf(log, "sendMy next\n");
+
+	auto result = hkSend.callNext(s, buf, len, flags);
+
+	debug(log) fprintf(log, "sendMy done\n");
+
+	return result;
 }
