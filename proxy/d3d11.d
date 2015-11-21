@@ -45,6 +45,7 @@ void initialize()
 			}
 		}
 		while (FindNextFileW(hDir, &wfd));
+	FindClose(hDir);
 }
 
 HMODULE hmTarget;
