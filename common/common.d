@@ -79,9 +79,13 @@ void showMessage(in char[] msg)
 	}
 }
 
-T[] newArr(T)(size_t size)
+void setLength(T)(ref T[] arr, size_t len)
 {
-	return (cast(T*)malloc(size * T.sizeof))[0..size];
+	if (arr.length != len)
+	{
+		auto bytes = len * T.sizeof;
+		arr = (cast(T*)realloc(arr.ptr, bytes))[0..len];
+	}
 }
 
 extern(C) ubyte _fltused;
