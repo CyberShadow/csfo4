@@ -120,7 +120,7 @@ int sendMy(SOCKET s, const(void)* buf, int len, int flags)
 			if (GetTickCount() % 10)
 				isBlank = true;
 
-			if (isBlank && goodPixels.length == header.width * header.height)
+			if (isBlank && goodPixels.length && goodPixels.length == header.width * header.height)
 			{
 				// Although the coordinates permit the map to represent any parallelogram,
 				// in practice it seems to be a cartesian-aligned rectangle (and can thus
@@ -135,8 +135,8 @@ int sendMy(SOCKET s, const(void)* buf, int len, int flags)
 				auto mdy = header.topLeft.y - goodMapHeader.topLeft.y;
 
 				// Delta (in pixels)
-				auto pdx = cast(int)(mdx / sx);
-				auto pdy = cast(int)(mdy / sy);
+				auto pdx = sx ? cast(int)(mdx / sx) : 0;
+				auto pdy = sy ? cast(int)(mdy / sy) : 0;
 
 				debug(fill)
 				foreach (i, ref p; pixels)
