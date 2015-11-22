@@ -56,6 +56,9 @@ void logValue(T)(ref T value)
 	static if (is(T:long))
 		fprintf(log, "%lld", long(value));
 	else
+	static if (is(T:double))
+		fprintf(log, "%f", double(value));
+	else
 	static if (is(typeof(cast(void*)value)))
 	{
 		auto p = cast(void*)value;
