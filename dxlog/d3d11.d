@@ -164,6 +164,7 @@ void hookMethod(I, string methodName)(ref void* ptr)
 			mutDesc.Height /= 2;
 		}
 		*/
+		version(none)
 		static if (methodName == "RSSetViewports")
 		{
 			auto NumViewports = args[0];
