@@ -371,8 +371,12 @@ void hookArg(T)(T value)
 
 HMODULE hmTarget;
 
-mixin template proxyFunc(string name, Return, Args...)
+mixin template proxyFunc(alias func)
 {
+	enum name = __traits(identifier, func);
+	alias Return = ReturnType!func;
+	alias Args = Parameters!func;
+
 	alias ProxyFunc_t = typeof(&ProxyFunc);
 	ProxyFunc_t ProxyFunc_p = null;
 
@@ -390,14 +394,14 @@ mixin template proxyFunc(string name, Return, Args...)
 		}
 
 		auto result = ProxyFunc_p(args);
-		logFunc!D3D11CreateDeviceAndSwapChain(args, result);
+		logFunc!func(args, result);
 		foreach (arg; args)
 			hookArg(arg);
 		return result;
 	}
 }
 
-mixin proxyFunc!("D3D11CreateDeviceAndSwapChain" , HRESULT, Parameters!D3D11CreateDeviceAndSwapChain);
+mixin proxyFunc!D3D11CreateDeviceAndSwapChain;
 
 void loadTarget()
 {
