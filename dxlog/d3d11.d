@@ -38,7 +38,7 @@ FILE* log;
 
 void initialize()
 {
-	log = fopen(`C:\Temp\Fallout4\MyMods\csfo4\dxlog\dxlog.log`, "wb");
+	log = fopen(`dxlog.log`, "wb");
 }
 
 void finalize()
